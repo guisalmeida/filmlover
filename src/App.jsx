@@ -1,30 +1,41 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import 'swiper/css';
-import 'swiper/css/effect-cards';
-
 import Header from './components/header/header'
 import Footer from './components/footer/footer'
 import MovieCarousel from './components/movieCarousel/movieCarousel';
-import MovieCard from './components/movieCard/movieCard';
+import MoviesGrid from './components/moviesGrid/moviesGrid';
+import Search from './components/search/search';
+
+import { SearchIcon } from './components/search/search.styled'
+
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+
+const API_URL = 'https://api.themoviedb.org/3'
+const API_KEY = import.meta.env.VITE_API_KEY
 
 export default function App() {
-  const API_URL = 'https://api.themoviedb.org/3'
-  const API_KEY = import.meta.env.VITE_API_KEY
-
   const [movies, setMovies] = useState([])
+  const [searchKey, setSearchKey] = useState("")
 
-  const fetchMovies = async () => {
-    const { data } = await axios.get(`${API_URL}/discover/movie?`, {
+  const searchMovies = (e) => {
+    e.preventDefault()
+    fetchMovies(searchKey)
+  }
+
+  const fetchMovies = async (searchKey = "", page = 1) => {
+    const type = searchKey ? "search" : "discover"
+    const { data } = await axios.get(`${API_URL}/${type}/movie`, {
       params: {
         api_key: API_KEY,
-        page: 1
-
+        query: searchKey,
+        page
       }
     })
     console.log(data)
     setMovies(data.results)
+    setSearchKey("")
   }
 
   useEffect(() => {
@@ -34,18 +45,21 @@ export default function App() {
   return (
     <>
       <Header />
-      <MovieCard
-        movie={
-          {
-            poster_path: '/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg',
-            title: 'Barbie',
-            vote_average: 8.8
-          }
-        }
-      />
-      <MovieCarousel
+      <form onSubmit={searchMovies}>
+        <input
+          type="text"
+          value={searchKey}
+          onChange={(e) => setSearchKey(e.target.value)}
+        />
+
+        <button type="submit">
+          <SearchIcon />
+        </button>
+      </form>
+      <MoviesGrid movies={movies} />
+      {/* <MovieCarousel
         movies={movies}
-      />
+      /> */}
       <Footer />
     </>
   )
