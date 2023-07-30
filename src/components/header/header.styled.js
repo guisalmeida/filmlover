@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const Header = styled.header`
     width: 100%;
     height: 60px;
-    padding: 0 15px;
+    padding: 0 4rem;
 
     border-bottom: 1px solid var(--highlight);
     display: flex;
@@ -23,5 +23,3 @@ export const Header = styled.header`
         }
     }
 `
-
-
