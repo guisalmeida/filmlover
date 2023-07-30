@@ -10,10 +10,10 @@ export const Header = styled.header`
     align-items: center;
     justify-content: space-between;
 
-    position: fixed;
+    /* position: fixed;
     top: 0;
     left: 0;
-    z-index: 9;
+    z-index: 9; */
 
     img {
         height: 30px;
