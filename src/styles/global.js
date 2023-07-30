@@ -33,7 +33,7 @@ html input {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 10px;
     font-weight: 400;
 }
@@ -41,7 +41,7 @@ html input {
 body {
     background-color:var(--dark);
     color: white;
-    font-family: Noto Sans SC, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
     font-weight: 400;
     min-height: 100%;
