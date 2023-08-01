@@ -1,7 +1,19 @@
 import * as styled from './movieCard.styled'
+import { useDispatch } from 'react-redux'
+import { likeMovie, dislikeMovie } from '../../redux/actions/moviesAction'
 
 export default function MovieCard({ movie }) {
 	const IMAGE_URL = 'http://image.tmdb.org/t/p/w500'
+	const dispatch = useDispatch()
+
+	const addLikeMovie = (movie) => {
+		dispatch(likeMovie(movie))
+	}
+
+	const addDislikeMovie = (movie) => {
+		dispatch(dislikeMovie(movie))
+	}
+
 	return (
 		<styled.MovieCardContainer>
 			<img src={IMAGE_URL + movie.poster_path} alt={movie.title} />
@@ -13,14 +25,14 @@ export default function MovieCard({ movie }) {
 				<styled.MovieCardButtons>
 					<button
 						type="button"
-						onClick={() => console.log('dislike')}
+						onClick={() => addDislikeMovie(movie)}
 					>
 						<styled.DislikeButton />
 					</button>
 
 					<button
 						type="button"
-						onClick={() => console.log('like')}
+						onClick={() => addLikeMovie(movie)}
 					>
 						<styled.LikeButton />
 					</button>

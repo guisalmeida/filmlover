@@ -1,17 +1,27 @@
+import { Link } from 'react-router-dom'
+
 import Logo from '../../assets/logo_h.svg'
 import User from '../../assets/user.jpeg'
-import * as Styled from './header.styled.js'
+import Search from '../searchBar/searchBar'
 
-import Search from '../search/search'
+import * as Styled from './header.styled.js'
 
 export default function Header() {
   return (
     <Styled.Header>
-      <a href="#" target="_blank" rel="noopener noreferrer">
+      <Link to="/">
         <img src={Logo} className="logo" alt="Filmlover logo" />
-      </a>
+      </Link>
 
       <Search />
+
+      <Link to="/favorites">
+        <p>Favorites</p>
+      </Link>
+
+      <Link to="/wallofshame">
+        <p>Wall of shame</p>
+      </Link>
 
       <img src={User} className="user" alt="User photo" />
     </Styled.Header>

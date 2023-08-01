@@ -1,23 +1,30 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setMovies } from '../../redux/actions/moviesAction'
-import * as Styled from './search.styled.js'
+import { setSearchMovies } from '../../redux/actions/moviesAction'
+import * as Styled from './searchBar.styled.js'
 import { fetchMovies } from '../../utils/api'
+import { useNavigate } from "react-router-dom";
 
-export default function Search() {
+export default function SearchBar() {
   const [searchKey, setSearchKey] = useState("")
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const searchMovies = async (e) => {
     e.preventDefault()
     const searchMovies = await fetchMovies(searchKey)
-    dispatch(setMovies(searchMovies))
+    dispatch(setSearchMovies(searchMovies))
     setSearchKey("")
+    navigate("/search");
   }
 
   return (
     <form onSubmit={searchMovies}>
-      <input type="text" value={searchKey} onChange={(e) => setSearchKey(e.target.value)} />
+      <input
+        type="text"
+        value={searchKey}
+        onChange={(e) => setSearchKey(e.target.value)}
+      />
       <button type="submit">
         <Styled.SearchIcon />
       </button>

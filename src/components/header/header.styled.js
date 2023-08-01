@@ -4,16 +4,17 @@ export const Header = styled.header`
     width: 100%;
     height: 60px;
     padding: 0 4rem;
+    background-color: var(--dark);
 
     border-bottom: 1px solid var(--highlight);
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    /* position: fixed;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 9; */
+    z-index: 9;
 
     img {
         height: 30px;
