@@ -2,6 +2,9 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { EffectCards } from 'swiper/modules'
 import MovieCard from '../movieCard/movieCard.jsx'
 
+import 'swiper/css'
+import 'swiper/css/effect-cards'
+
 import * as Styled from './movieCarousel.styled.js'
 
 export default function MovieCarousel({ movies }) {
