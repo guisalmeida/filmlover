@@ -12,16 +12,30 @@ export function setSearchMovies(movies) {
   }
 }
 
-export function likeMovie(movie) {
+export function setLikedMovies(movies) {
   return {
-    type: "LIKE_MOVIE",
+    type: "SET_LIKED_MOVIES",
+    payload: movies
+  }
+}
+
+export function setDislikedMovies(movies) {
+  return {
+    type: "SET_DISLIKED_MOVIES",
+    payload: movies
+  }
+}
+
+export function addlikedMovie(movie) {
+  return {
+    type: "ADD_LIKED_MOVIE",
     payload: movie
   }
 }
 
-export function dislikeMovie(movie) {
+export function addDislikedMovie(movie) {
   return {
-    type: "DISLIKE_MOVIE",
+    type: "ADD_DISLIKED_MOVIE",
     payload: movie
   }
 }
