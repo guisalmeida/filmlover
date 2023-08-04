@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from "react-router-dom"
+
 import { setSearchMovies } from '../../redux/actions/moviesAction'
-import * as Styled from './searchBar.styled.js'
 import { fetchMovies } from '../../utils/api'
-import { useNavigate } from "react-router-dom";
+
+import * as Styled from './searchBar.styled.js'
 
 export default function SearchBar() {
   const [searchKey, setSearchKey] = useState("")

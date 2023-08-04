@@ -12,5 +12,6 @@ export const MovieCarousel = styled.div`
   }
 
   .swiper-slide {
+    border-radius: 1rem;
   }
 `

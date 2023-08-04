@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux'
-import MoviesGrid from '../../components/moviesGrid/moviesGrid'
+import MovieCarousel from '../../components/movieCarousel/movieCarousel'
 
 export default function Home() {
   const allMovies = useSelector((state) => state.movies.all)
-
   return (
-    <MoviesGrid movies={allMovies} />
+    <MovieCarousel movies={allMovies} />
   )
 }

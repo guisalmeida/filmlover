@@ -5,7 +5,7 @@ const GlobalStyles = createGlobalStyle`
 
 :root {   
     --highlight: #E02041;
-    --dark: #13131A;
+    --background: #13131A;
 
     --break-small: 320px;
     --break-medium: 992px;
@@ -39,7 +39,10 @@ html input {
 }
 
 body {
-    background-color:var(--dark);
+    background: var(--background);  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, var(--background), var(--highlight));  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, var(--background), var(--highlight)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     color: white;
     font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;

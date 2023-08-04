@@ -11,23 +11,19 @@ export default function MovieCarousel({ movies }) {
   return (
     <Styled.MovieCarousel>
       <Swiper
+        className="mySwiper"
         effect={'cards'}
         modules={[EffectCards]}
-        centeredSlides={true}
-        // cardEffect={
-        //   {
-        //     rotate: false,
-        //     slideShadows: false,
-        //     perSlideOffset: 0,
-        //     perSlideRotate: 0
-        //   }
-        // }
-        grabCursor={true}
-        // loop={true}
-        className="mySwiper"
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
-        onReachEnd={() => console.log('end!')}
+        cardsEffect={
+          {
+            perSlideOffset: 1,
+            perSlideRotate: 1
+          }
+        }
+        loop={true}
+      // onSlideChange={() => console.log('slide change')}
+      // onReachEnd={() => console.log('end!')}
+      // onSwiper={(swiper) => swiper.slideNext()}
       >
         {movies.map(movie => (
           <SwiperSlide key={movie.id} >

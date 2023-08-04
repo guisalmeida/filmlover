@@ -5,5 +5,5 @@ export const MoviesGridContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-column-gap: 2rem;
   grid-row-gap: 4rem;
-  margin: calc(4rem + 60px) 4rem 4rem 4rem;
+  margin: calc(4rem + 60px) 4rem;
 `
