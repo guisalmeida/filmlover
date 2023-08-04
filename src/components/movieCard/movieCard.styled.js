@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { HeartCircle } from '@styled-icons/ionicons-outline/HeartCircle'
 import { HeartDislikeCircle } from '@styled-icons/ionicons-outline/HeartDislikeCircle'
+import { RemoveCircleOutline } from '@styled-icons/material/RemoveCircleOutline'
 
 export const MovieCardContainer = styled.div`
   position: relative;
@@ -41,21 +42,40 @@ export const MovieCardActions = styled.div`
   }
 
   h3 {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     text-align: center;
     margin: 20px 0;
   }
 
-  p {
+  .votes {
     color: black;
     font-weight: bold;
     background-color: orange;
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     margin: 0 0 20px;
+    font-size: 1rem;
   }
-  `
+
+  .flag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    padding: 1rem;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 3rem;
+  }
+`
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+`
 
 export const MovieCardButtons = styled.div``
 
@@ -70,7 +90,7 @@ export const LikeButton = styled(HeartCircle)`
     background: green;
     color: white;
   }
-  `
+`
 
 export const DislikeButton = styled(HeartDislikeCircle)`
   color: red;
@@ -83,4 +103,9 @@ export const DislikeButton = styled(HeartDislikeCircle)`
     background: red;
     color: white;
   }
+`
+
+export const RemoveIcon = styled(RemoveCircleOutline)`
+  color: white;
+  width: 40px;
 `
