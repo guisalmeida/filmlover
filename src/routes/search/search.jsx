@@ -5,6 +5,9 @@ export default function Search() {
   const searchResultMovies = useSelector((state) => state.movies.searchResult)
 
   return (
-    <MoviesGrid movies={searchResultMovies} />
+    <MoviesGrid
+      movies={searchResultMovies}
+      title='Search results'
+    />
   )
 }

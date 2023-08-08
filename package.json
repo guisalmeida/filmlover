@@ -19,6 +19,7 @@
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.11",
     "styled-icons": "^10.47.0",
+    "styled-media-query": "^2.1.2",
     "swiper": "^10.0.4"
   },
   "devDependencies": {

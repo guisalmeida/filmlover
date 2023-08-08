@@ -1,25 +1,45 @@
-import styled from "styled-components"
+import styled from 'styled-components'
+import media from 'styled-media-query'
 
 export const Header = styled.header`
-    width: 100%;
-    height: 60px;
-    padding: 0 4rem;
-    background-color: var(--background);
+    width: calc(100% - 16rem);
+    height: 4rem;
+    padding: 0 2rem;
 
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;
 
     position: fixed;
     top: 0;
-    left: 0;
-    z-index: 9;
+    right: 0;
+    z-index: 1;
 
-    img {
-        height: 30px;
+    ${media.lessThan('medium')`
+        height: 5rem;
+        align-items: center;
+		width: 100%;
+        padding: 1rem;
+        background: var(--background);
+	`}
 
-        &.user {
-            border-radius: 50%;
-        }
+    .user {
+        height: 2rem;
+        border-radius: 50%;
+        filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+
+        ${media.lessThan('medium')`
+		    display: none;
+        `}
+    }
+
+    .header-logo {
+        width: 2.5rem;
+        display: flex;
+        margin-right: 1rem;
+        
+        ${media.greaterThan('medium')`
+            display: none;
+        `}
     }
 `

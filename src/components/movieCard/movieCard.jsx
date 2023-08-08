@@ -8,6 +8,8 @@ import {
 	setLikedMovies,
 	setDislikedMovies
 } from '../../redux/actions/moviesAction'
+import Logo from '/logo.svg'
+import { MOVIE_GENRES } from '../../utils/api'
 
 import * as Styled from './movieCard.styled'
 
@@ -90,28 +92,39 @@ export default function MovieCard({ movie }) {
 	}
 
 	return (
-		<Styled.MovieCardContainer>
+		<Styled.MovieCardContainer imageUrl={IMAGE_URL + movie.poster_path} >
 			<img src={IMAGE_URL + movie.poster_path} alt={movie.title} />
+			{/* <p className='movie-overview'>{movie.overview}</p> */}
+			{/* <p className='flag'>like</p> */}
+
+			{
+				showCloseButton &&
+				<Styled.CloseButton
+					type="button"
+					title={`Remove from ${whichLocation()}`}
+					onClick={() => {
+						if (location.pathname === '/favorites') {
+							removeMovieFromLikedList(movie)
+						} else if (location.pathname === '/wallofshame')
+							removeMovieFromDislikedList(movie)
+					}}
+				>
+					<Styled.RemoveIcon />
+				</Styled.CloseButton>
+			}
 
 			<Styled.MovieCardActions>
-				{showCloseButton &&
-					<Styled.CloseButton
-						type="button"
-						title={`Remove from ${whichLocation()}`}
-						onClick={() => {
-							if (location.pathname === '/favorites') {
-								removeMovieFromLikedList(movie)
-							} else if (location.pathname === '/wallofshame')
-								removeMovieFromDislikedList(movie)
-						}}
-					>
-						<Styled.RemoveIcon />
-					</Styled.CloseButton>
-				}
 
 				<h3>{movie.title}</h3>
-				<p className='votes'>TMDB: {movie.vote_average}</p>
-				{/* <p className='flag'>like</p> */}
+				{/* <p className='votes'>TMDB: {movie.vote_average}</p> */}
+
+				<Styled.genreContainer>
+					{movie.genre_ids.map((cod, i) => {
+						if (i > 2) return
+						const genre = MOVIE_GENRES.find((m) => m.id === cod)
+						return (<p key={cod}>{genre.name}</p>)
+					})}
+				</Styled.genreContainer>
 
 				{showButtons ?
 					<Styled.MovieCardButtons>
@@ -134,6 +147,6 @@ export default function MovieCard({ movie }) {
 				}
 
 			</Styled.MovieCardActions>
-		</Styled.MovieCardContainer>
+		</Styled.MovieCardContainer >
 	)
 }

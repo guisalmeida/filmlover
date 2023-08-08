@@ -5,6 +5,9 @@ export default function Favorites() {
   const favoriteMovies = useSelector((state) => state.movies.liked)
 
   return (
-    <MoviesGrid movies={favoriteMovies} />
+    <MoviesGrid
+      movies={favoriteMovies}
+      title='Favorites'
+    />
   )
 }

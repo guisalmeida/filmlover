@@ -21,15 +21,16 @@ export default function SearchBar() {
   }
 
   return (
-    <form onSubmit={searchMovies}>
+    <Styled.SearchForm onSubmit={searchMovies}>
       <input
         type="text"
         value={searchKey}
         onChange={(e) => setSearchKey(e.target.value)}
+        placeholder='Search movie...'
       />
       <button type="submit">
         <Styled.SearchIcon />
       </button>
-    </form>
+    </Styled.SearchForm>
   )
 }
