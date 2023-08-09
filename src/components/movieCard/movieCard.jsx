@@ -91,6 +91,8 @@ export default function MovieCard({ movie }) {
 		dispatch(setLikedMovies(updatedLikedList))
 	}
 
+	const imageUrl = movie.poster_path ? IMAGE_URL + movie.poster_path : '/not-found.png'
+
 	return (
 		<Styled.MovieCardContainer imageUrl={IMAGE_URL + movie.poster_path} >
 			<img src={IMAGE_URL + movie.poster_path} alt={movie.title} />
