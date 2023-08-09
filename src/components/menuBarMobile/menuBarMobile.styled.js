@@ -9,7 +9,7 @@ export const MenuBarMobile = styled.section`
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	height: 3rem;
+	height: 4rem;
 	width: 100%;
 	background: var(--background);
 	align-items: center;
@@ -22,7 +22,7 @@ export const MenuBarMobile = styled.section`
 	`}
 
 	.user {
-		height: 1.5rem;
+		height: 2rem;
 		border-radius: 50%;
 	}
 `
@@ -35,14 +35,14 @@ export const MenuBar = styled.nav`
 `
 
 export const HomeIcon = styled(Home)`
-	width: 1.5rem;
+	width: 2rem;
 	color: white;
 `
 export const StarIcon = styled(Star)`
-	width: 1.5rem;
+	width: 2rem;
 	color: white;
 `
 export const DislikeIcon = styled(HeartDislike)`
-	width: 1.5rem;
+	width: 2rem;
 	color: white;
 `

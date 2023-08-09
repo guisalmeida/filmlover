@@ -8,13 +8,12 @@ import {
 	setLikedMovies,
 	setDislikedMovies
 } from '../../redux/actions/moviesAction'
-import Logo from '/logo.svg'
-import { MOVIE_GENRES } from '../../utils/api'
+
+import { MOVIE_GENRES, IMAGE_URL } from '../../utils/api'
 
 import * as Styled from './movieCard.styled'
 
 export default function MovieCard({ movie }) {
-	const IMAGE_URL = 'http://image.tmdb.org/t/p/w500'
 	const dispatch = useDispatch()
 	const swiper = useSwiper();
 
@@ -94,9 +93,35 @@ export default function MovieCard({ movie }) {
 	const imageUrl = movie.poster_path ? IMAGE_URL + movie.poster_path : '/not-found.png'
 
 	return (
-		<Styled.MovieCardContainer imageUrl={IMAGE_URL + movie.poster_path} >
-			<img src={IMAGE_URL + movie.poster_path} alt={movie.title} />
-			{/* <p className='movie-overview'>{movie.overview}</p> */}
+		<Styled.MovieCardContainer imageUrl={imageUrl} >
+			<img className='imagePoster' src={imageUrl} alt={movie.title} />
+
+			{showButtons ?
+				<Styled.MovieCardButtons>
+					<button
+						type="button"
+						title="Dislike Movie"
+						onClick={() => addDislikeMovie(movie)}
+					>
+						<Styled.DislikeButton />
+					</button>
+
+					<button
+						type="button"
+						title="Like Movie"
+						onClick={() => addLikeMovie(movie)}
+					>
+						<Styled.LikeButton />
+					</button>
+				</Styled.MovieCardButtons> : null
+			}
+
+			{movie.overview ?
+				<Styled.MovieOverview>
+					<p>{movie.overview}</p>
+				</Styled.MovieOverview>
+				: null}
+
 			{/* <p className='flag'>like</p> */}
 
 			{
@@ -116,7 +141,6 @@ export default function MovieCard({ movie }) {
 			}
 
 			<Styled.MovieCardActions>
-
 				<h3>{movie.title}</h3>
 				{/* <p className='votes'>TMDB: {movie.vote_average}</p> */}
 
@@ -127,26 +151,6 @@ export default function MovieCard({ movie }) {
 						return (<p key={cod}>{genre.name}</p>)
 					})}
 				</Styled.genreContainer>
-
-				{showButtons ?
-					<Styled.MovieCardButtons>
-						<button
-							type="button"
-							title="Dislike Movie"
-							onClick={() => addDislikeMovie(movie)}
-						>
-							<Styled.DislikeButton />
-						</button>
-
-						<button
-							type="button"
-							title="Like Movie"
-							onClick={() => addLikeMovie(movie)}
-						>
-							<Styled.LikeButton />
-						</button>
-					</Styled.MovieCardButtons> : null
-				}
 
 			</Styled.MovieCardActions>
 		</Styled.MovieCardContainer >

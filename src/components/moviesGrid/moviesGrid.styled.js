@@ -2,9 +2,9 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 
 export const MoviesGridContainer = styled.section`
-  margin: calc(4rem + 60px) 0 4rem 16rem;
+  margin: calc(4rem + 60px) 0 4rem 18rem;
   padding: 0 2rem;
-  width: calc(100% - 16rem);
+  width: calc(100% - 18rem);
   
   ${media.lessThan('medium')`
     padding: 0 1rem;
@@ -26,7 +26,7 @@ export const MoviesGridContainer = styled.section`
 
 export const MoviesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 295px));
   grid-column-gap: 2rem;
   grid-row-gap: 4rem;
 
