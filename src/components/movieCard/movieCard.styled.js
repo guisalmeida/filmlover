@@ -148,9 +148,10 @@ export const MovieOverview = styled.p`
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
 
-  
-  ${MovieCardContainer}:hover & {
-    display: inline-block;
+  @media (hover: hover){
+    ${MovieCardContainer}:hover & {
+      display: inline-block;
+    }
   }
   
   p {
@@ -171,8 +172,10 @@ export const MovieCardButtons = styled.div`
   width: 100%;
   transition: all 0.3s ease;
 
-  ${MovieCardContainer}:hover & {
-    display: flex;
+  @media (hover: hover){
+    ${MovieCardContainer}:hover & {
+      display: flex;
+    }
   }
   
   ${media.lessThan('medium')`
@@ -192,8 +195,10 @@ export const LikeButton = styled(HeartCircle)`
   color: white;
   cursor: pointer;
   
-  &:hover {
-    color: green;
+  @media (hover: hover){
+    &:hover {
+      color: green;
+    }
   }
 `
 
@@ -208,8 +213,10 @@ export const DislikeButton = styled(HeartDislikeCircle)`
   color: white;
   cursor: pointer;
   
-  &:hover {
-    color: red;
+  @media (hover: hover){
+    &:hover {
+      color: red;
+    }
   }
 `
 export const CloseButton = styled.button`
@@ -228,7 +235,9 @@ export const RemoveIcon = styled(RemoveCircleOutline)`
   -webkit-backdrop-filter: blur(3px);
   width: 2rem;
   
-  &:hover{
-    color: var(--highlight);
+  @media (hover: hover){
+    &:hover{
+      color: var(--highlight);
+    }
   }
 `

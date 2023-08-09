@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components"
+import media from 'styled-media-query'
 import "./reset.css";
 
 const GlobalStyles = createGlobalStyle`
@@ -6,10 +7,6 @@ const GlobalStyles = createGlobalStyle`
 :root {   
     --highlight: #E02041;
     --background: #1d2735;
-
-    /* --break-small: 320px;
-    --break-medium: 992px;
-    --break-large: 1280px; */
 
     --break-huge: 1440px;
     --break-large: 1170px;
@@ -51,6 +48,10 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
+	
+	${media.lessThan('medium')`
+        min-height: calc(100vh + 4rem);
+	`}
 }
 
 button {
