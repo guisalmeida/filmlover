@@ -140,11 +140,11 @@ export default function CardsCarousel({ movies }) {
         })}
 
         <Styled.CardsButtonsContainer>
-          <button onClick={() => handleAddDislikedMovie(movies[currentIndex])}>
+          <button onClick={() => setLastDirection('left')}>
             <Styled.DislikeButton />
           </button>
 
-          <button onClick={() => handleAddLikedMovie(movies[currentIndex])}>
+          <button onClick={() => setLastDirection('right')}>
             <Styled.LikeButton />
           </button>
         </Styled.CardsButtonsContainer>
