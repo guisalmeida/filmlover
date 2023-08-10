@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import MovieCarousel from '../../components/movieCarousel/movieCarousel'
+
 import CardsCarousel from '../../components/cardsCarousel/cardsCarousel'
 
 export default function Home() {
