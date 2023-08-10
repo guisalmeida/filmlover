@@ -5,7 +5,7 @@ import { SearchOutline } from '@styled-icons/evaicons-outline/SearchOutline'
 
 export const SearchForm = styled.form`
 	position: relative;
-	width: 80%;
+	width: 70%;
 	display: flex;
 	align-items: center;
 

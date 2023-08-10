@@ -23,16 +23,7 @@ export const Header = styled.header`
         background: var(--background);
 	`}
 
-    .user {
-        height: 2rem;
-        border-radius: 50%;
-        filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
-
-        ${media.lessThan('medium')`
-		    display: none;
-        `}
-    }
-
+    
     .header-logo {
         width: 2.5rem;
         display: flex;
@@ -41,5 +32,23 @@ export const Header = styled.header`
         ${media.greaterThan('medium')`
             display: none;
         `}
+    }
+`
+
+export const UserContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 30%;
+    
+    ${media.lessThan('medium')`
+        display: none;
+    `}
+
+    .user-photo {
+        height: 2rem;
+        border-radius: 50%;
+        filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        margin-left: 1rem;
     }
 `

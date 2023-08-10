@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import { useSwiper } from 'swiper/react'
 import {
-	addlikedMovie,
+	addLikedMovie,
 	addDislikedMovie,
 	setAllMovies,
 	setLikedMovies,
@@ -15,15 +14,14 @@ import * as Styled from './movieCard.styled'
 
 export default function MovieCard({ movie }) {
 	const dispatch = useDispatch()
-	const swiper = useSwiper();
 
 	const likedMoviesList = useSelector((state) => state.movies.liked)
 	const dislikedMoviesList = useSelector((state) => state.movies.disliked)
 	const allMovies = useSelector((state) => state.movies.all)
 
 	const location = useLocation()
-	const showButtons = location.pathname !== '/favorites' && location.pathname !== '/wallofshame'
-	const showCloseButton = !showButtons
+	const showButtons = location.pathname === '/search'
+	const showCloseButton = location.pathname === '/favorites' || location.pathname === '/wallofshame'
 
 	const whichLocation = () => {
 		if (location.pathname === '/favorites') {
@@ -42,7 +40,7 @@ export default function MovieCard({ movie }) {
 		movieList.find((listMovie) => listMovie.id === movie.id)
 	)
 
-	const addLikeMovie = (newLikedMovie) => {
+	const handleAddLikedMovie = (newLikedMovie) => {
 		const isLiked = isOnList(newLikedMovie, likedMoviesList)
 
 		if (isLiked) {
@@ -51,11 +49,10 @@ export default function MovieCard({ movie }) {
 
 		const filteredMovies = removeMovieFromList(newLikedMovie, allMovies)
 		dispatch(setAllMovies(filteredMovies))
-		dispatch(addlikedMovie(movie))
-		swiper.slidePrev()
+		dispatch(addLikedMovie(newLikedMovie))
 	}
 
-	const addDislikeMovie = (NewDislikedMovie) => {
+	const handleAddDislikedMovie = (NewDislikedMovie) => {
 		const isLiked = isOnList(NewDislikedMovie, dislikedMoviesList)
 
 		if (isLiked) {
@@ -65,7 +62,6 @@ export default function MovieCard({ movie }) {
 		const filteredMovies = removeMovieFromList(NewDislikedMovie, allMovies)
 		dispatch(setAllMovies(filteredMovies))
 		dispatch(addDislikedMovie(NewDislikedMovie))
-		swiper.slideNext()
 	}
 
 	const removeMovieFromDislikedList = (dislikedMovie) => {
@@ -77,6 +73,7 @@ export default function MovieCard({ movie }) {
 
 		const updatedDislikedList = removeMovieFromList(dislikedMovie, dislikedMoviesList)
 		dispatch(setDislikedMovies(updatedDislikedList))
+		dispatch(setAllMovies([...allMovies, dislikedMovie]))
 	}
 
 	const removeMovieFromLikedList = (likedMovie) => {
@@ -88,6 +85,7 @@ export default function MovieCard({ movie }) {
 
 		const updatedLikedList = removeMovieFromList(likedMovie, likedMoviesList)
 		dispatch(setLikedMovies(updatedLikedList))
+		dispatch(setAllMovies([...allMovies, likedMovie]))
 	}
 
 	const imageUrl = movie.poster_path ? IMAGE_URL + movie.poster_path : '/not-found.png'
@@ -101,7 +99,7 @@ export default function MovieCard({ movie }) {
 					<button
 						type="button"
 						title="Dislike Movie"
-						onClick={() => addDislikeMovie(movie)}
+						onClick={() => handleAddDislikedMovie(movie)}
 					>
 						<Styled.DislikeButton />
 					</button>
@@ -109,7 +107,7 @@ export default function MovieCard({ movie }) {
 					<button
 						type="button"
 						title="Like Movie"
-						onClick={() => addLikeMovie(movie)}
+						onClick={() => handleAddLikedMovie(movie)}
 					>
 						<Styled.LikeButton />
 					</button>

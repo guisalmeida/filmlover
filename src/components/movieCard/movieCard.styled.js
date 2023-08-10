@@ -3,7 +3,7 @@ import media from 'styled-media-query'
 
 import { HeartCircle } from '@styled-icons/ionicons-outline/HeartCircle'
 import { HeartDislikeCircle } from '@styled-icons/ionicons-outline/HeartDislikeCircle'
-import { RemoveCircleOutline } from '@styled-icons/material/RemoveCircleOutline'
+import { DeleteOutline } from '@styled-icons/typicons/DeleteOutline'
 
 export const MovieCardContainer = styled.div`
   position: relative;
@@ -131,7 +131,7 @@ export const genreContainer = styled.div`
   }
 `
 
-export const MovieOverview = styled.p`
+export const MovieOverview = styled.div`
   display: none;
   position: absolute;
   top: 0;
@@ -158,7 +158,7 @@ export const MovieOverview = styled.p`
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 10;
+    -webkit-line-clamp: 9;
     -webkit-box-orient: vertical;
     line-height: 1.2;
   }
@@ -225,7 +225,7 @@ export const CloseButton = styled.button`
   right: 0.25rem;
   cursor: pointer;
 `
-export const RemoveIcon = styled(RemoveCircleOutline)`
+export const RemoveIcon = styled(DeleteOutline)`
   transition: all 0.3s ease;
   color: white;
   border-radius: 50%;

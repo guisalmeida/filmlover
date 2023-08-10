@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   all: [],
   liked: [],
   disliked: [],
-  searchResult: []
+  searchResult: [],
+  actualPage: 1,
 }
 
 export const moviesReducer = (state = INITIAL_STATE, action) => {
@@ -28,6 +29,9 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
 
     case MOVIES_ACTION_TYPES.SET_DISLIKED_MOVIES:
       return { ...state, disliked: payload }
+
+    case MOVIES_ACTION_TYPES.SET_ACTUAL_PAGE:
+      return { ...state, actualPage: payload }
 
     default:
       return state

@@ -41,17 +41,18 @@ html input {
 
 body {
     color: white;
-    background: var(--background);  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, var(--background), var(--highlight));  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, var(--background), var(--highlight)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* fallback for old browsers */
+    background: var(--background);
 
-    min-height: 100vh;
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to bottom, var(--background), var(--highlight));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to bottom, var(--background), var(--highlight));
+
+    min-height: calc(100vh - 6rem);
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
-	
-	${media.lessThan('medium')`
-        min-height: calc(100vh + 4rem);
-	`}
 }
 
 button {

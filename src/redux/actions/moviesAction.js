@@ -26,7 +26,7 @@ export function setDislikedMovies(movies) {
   }
 }
 
-export function addlikedMovie(movie) {
+export function addLikedMovie(movie) {
   return {
     type: "ADD_LIKED_MOVIE",
     payload: movie
@@ -37,5 +37,12 @@ export function addDislikedMovie(movie) {
   return {
     type: "ADD_DISLIKED_MOVIE",
     payload: movie
+  }
+}
+
+export function setActualPage(page) {
+  return {
+    type: "SET_ACTUAL_PAGE",
+    payload: page
   }
 }

@@ -9,7 +9,10 @@ export default function Header() {
     <Styled.Header>
       <img src={Logo} className="header-logo" alt="Filmlover logo" />
       <Search />
-      <img src={User} className="user" alt="User photo" />
+      <Styled.UserContainer>
+        <p>Guisalmeida</p>
+        <img src={User} className="user-photo" alt="User photo" />
+      </Styled.UserContainer>
     </Styled.Header>
   )
 }

@@ -10,17 +10,12 @@ export default function SideBar() {
         <img src={Logo} className="logo" alt="Filmlover logo" />
       </Link>
 
-      <Link to="/">
-        <p>Home</p>
-      </Link>
+      <Styled.MenuContainer>
+        <Link to="/"><Styled.HomeIcon /><p>Home</p></Link>
+        <Link to="/favorites"><Styled.StarIcon /><p>Favorites</p></Link>
+        <Link to="/wallofshame"><Styled.DislikeIcon /><p>Wall of shame</p></Link>
+      </Styled.MenuContainer>
 
-      <Link to="/favorites">
-        <p>Favorites</p>
-      </Link>
-
-      <Link to="/wallofshame">
-        <p>Wall of shame</p>
-      </Link>
     </Styled.SideBar>
   )
 }

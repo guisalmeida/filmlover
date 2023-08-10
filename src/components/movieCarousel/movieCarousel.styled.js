@@ -5,15 +5,16 @@ export const MovieCarousel = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  width: calc(100% - 18rem);
+  margin: 6rem 0 6rem 18rem;
 
   ${media.lessThan('medium')`
-    height: calc(100vh - 3rem);
+    height: calc(100vh - 4rem);
 	`}
 
   .swiper {
-    width: 300px;
-    height: 400px;
+    width: 250px;
+    height: auto;
   }
 
   .swiper-slide {
