@@ -18,21 +18,15 @@ export default function CardsCarousel({ movies }) {
   const [currentIndex, setCurrentIndex] = useState(movies.length - 1)
   const [lastDirection, setLastDirection] = useState()
 
-  const dispatch = useDispatch()
-
   const likedMoviesList = useSelector((state) => state.movies.liked)
   const dislikedMoviesList = useSelector((state) => state.movies.disliked)
   const allMovies = useSelector((state) => state.movies.all)
   const actualPage = useSelector((state) => state.movies.actualPage)
 
-  // used for outOfFrame closure
-  const currentIndexRef = useRef(currentIndex)
+  const dispatch = useDispatch()
 
-  const childRefs = useMemo(
-    () =>
-      Array(movies.length)
-        .fill(0)
-        .map((i) => React.createRef()),
+  const childRefs = useMemo(() =>
+    Array(movies.length).fill(0).map((i) => React.createRef()),
     []
   )
 
@@ -41,40 +35,21 @@ export default function CardsCarousel({ movies }) {
     currentIndexRef.current = val
   }
 
-  const canGoBack = currentIndex < movies.length - 1
-
-  const canSwipe = currentIndex >= 0
-
-  // set last direction and decrease current index
   const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction)
     updateCurrentIndex(index - 1)
   }
 
+  const currentIndexRef = useRef(currentIndex)
   const outOfFrame = (name, idx) => {
     console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
-    if (idx > currentIndexRef.current) {
-      console.log('left');
-    } else {
-      console.log('right');
-    }
-
-    // handle the case in which go back is pressed before card goes outOfFrame
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
   }
 
+  const canSwipe = currentIndex >= 0
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < movies.length) {
       await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
     }
-  }
-
-  // increase current index and show card
-  const goBack = async () => {
-    if (!canGoBack) return
-    const newIndex = currentIndex + 1
-    updateCurrentIndex(newIndex)
-    await childRefs[newIndex].current.restoreCard()
   }
 
   const removeMovieFromList = (movieToRemove, movieList) =>
@@ -114,11 +89,8 @@ export default function CardsCarousel({ movies }) {
     }, 1000);
   }
 
-  let i = 0
-
   useEffect(() => {
     const getMovies = async () => {
-      debugger
       dispatch(setActualPage(actualPage + 1))
       const newMovies = await fetchMovies('', actualPage + 1)
 
@@ -140,12 +112,20 @@ export default function CardsCarousel({ movies }) {
     }
   }, [movies])
 
+  useEffect(() => {
+    if (lastDirection === 'left') {
+      console.log('adiciona dislike')
+      handleAddDislikedMovie(movies[currentIndex])
+    } else if (lastDirection === 'right') {
+      console.log('adiciona like')
+      handleAddLikedMovie(movies[currentIndex])
+    }
+  }, [lastDirection])
 
   return (
     <>
       <Styled.CardsCarouselContainer>
         {movies.map((movie, index) => {
-          i = index
           return (
             <TinderCard
               ref={childRefs[index]}
@@ -158,19 +138,17 @@ export default function CardsCarousel({ movies }) {
             </TinderCard>
           )
         })}
+
         <Styled.CardsButtonsContainer>
-          <button onClick={() => handleAddDislikedMovie(movies[i])}>
+          <button onClick={() => handleAddDislikedMovie(movies[currentIndex])}>
             <Styled.DislikeButton />
           </button>
 
-          {/* <button onClick={() => goBack()}>Undo swipe!</button> */}
-
-          <button onClick={() => handleAddLikedMovie(movies[i])}>
+          <button onClick={() => handleAddLikedMovie(movies[currentIndex])}>
             <Styled.LikeButton />
           </button>
         </Styled.CardsButtonsContainer>
       </Styled.CardsCarouselContainer>
-
     </>
   )
 }
