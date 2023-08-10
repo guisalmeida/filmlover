@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   disliked: [],
   searchResult: [],
   actualPage: 1,
+  isLoading: true,
 }
 
 export const moviesReducer = (state = INITIAL_STATE, action) => {
@@ -32,6 +33,9 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
 
     case MOVIES_ACTION_TYPES.SET_ACTUAL_PAGE:
       return { ...state, actualPage: payload }
+
+    case MOVIES_ACTION_TYPES.SET_IS_LOADING:
+      return { ...state, isLoading: payload }
 
     default:
       return state

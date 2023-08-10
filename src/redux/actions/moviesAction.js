@@ -46,3 +46,10 @@ export function setActualPage(page) {
     payload: page
   }
 }
+
+export function setIsLoading(bool) {
+  return {
+    type: "SET_IS_LOADING",
+    payload: bool
+  }
+}
