@@ -84,13 +84,18 @@ export const MOVIE_GENRES = [
 
 export const fetchMovies = async (searchKey = "", page = 1) => {
   const type = searchKey ? "search" : "discover"
-  const { data } = await axios.get(`${API_URL}/${type}/movie`, {
-    params: {
-      api_key: API_KEY,
-      query: searchKey,
-      page
-    }
-  })
+  try {
+    const { data } = await axios.get(`${API_URL}/${type}/movie`, {
+      params: {
+        api_key: API_KEY,
+        query: searchKey,
+        page
+      }
+    })
+    return data.results
 
-  return data.results
+  } catch (error) {
+    console.log('Error creating the user!', error.message);
+  }
+
 }

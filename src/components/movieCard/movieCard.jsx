@@ -92,7 +92,12 @@ export default function MovieCard({ movie }) {
 
 	return (
 		<Styled.MovieCardContainer imageUrl={imageUrl} >
-			<img className='imagePoster' src={imageUrl} alt={movie.title} />
+			<img
+				className='imagePoster'
+				src={imageUrl}
+				alt={movie.title}
+				loading='lazy'
+			/>
 
 			{showButtons ?
 				<Styled.MovieCardButtons>

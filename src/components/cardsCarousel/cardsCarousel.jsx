@@ -1,39 +1,59 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TinderCard from 'react-tinder-card'
+
 import MovieCard from '../movieCard/movieCard.jsx'
+import Spinner from '../spinner/spinner.jsx'
 
 import {
   addLikedMovie,
   addDislikedMovie,
   setAllMovies,
-  setActualPage
+  setActualPage,
+  setIsLoading
 } from '../../redux/actions/moviesAction'
 
 import { fetchMovies } from '../../utils/api'
 
 import * as Styled from './cardsCarousel.styled.js'
 
-export default function CardsCarousel({ movies }) {
-  const [currentIndex, setCurrentIndex] = useState(movies.length - 1)
-  const [lastDirection, setLastDirection] = useState()
-
+export default function CardsCarousel() {
   const likedMoviesList = useSelector((state) => state.movies.liked)
   const dislikedMoviesList = useSelector((state) => state.movies.disliked)
   const allMovies = useSelector((state) => state.movies.all)
   const actualPage = useSelector((state) => state.movies.actualPage)
+  const isLoading = useSelector((state) => state.movies.isLoading)
+
+  const [currentIndex, setCurrentIndex] = useState(allMovies.length - 1)
+  const [lastDirection, setLastDirection] = useState()
 
   const dispatch = useDispatch()
 
+  const getMovies = async (page = 1) => {
+    dispatch(setIsLoading(true))
+    const movies = await fetchMovies('', page)
+
+    const hasMovieOnList = (movie, movieList) =>
+      movieList.find((listMovie) => listMovie.id === movie.id)
+
+    const filteredMovies = movies.filter((movie) => {
+      const hasMovie = hasMovieOnList(movie, likedMoviesList) ||
+        hasMovieOnList(movie, dislikedMoviesList)
+      if (!hasMovie) return movie
+    })
+
+    dispatch(setAllMovies(filteredMovies.reverse()))
+    dispatch(setIsLoading(false))
+  }
+
+  useEffect(() => {
+    getMovies('', actualPage)
+  }, [])
+
   const childRefs = useMemo(() =>
-    Array(movies.length).fill(0).map((i) => React.createRef()),
+    Array(allMovies.length).fill(0).map((i) => React.createRef()),
     []
   )
-
-  const updateCurrentIndex = (val) => {
-    setCurrentIndex(val)
-    currentIndexRef.current = val
-  }
 
   const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction)
@@ -41,13 +61,23 @@ export default function CardsCarousel({ movies }) {
   }
 
   const currentIndexRef = useRef(currentIndex)
+  const canSwipe = currentIndex >= 0
+
   const outOfFrame = (name, idx) => {
     console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
+    if (allMovies.length <= 1) {
+      getMovies('', actualPage + 1)
+      dispatch(setActualPage(actualPage + 1))
+    }
   }
 
-  const canSwipe = currentIndex >= 0
+  const updateCurrentIndex = (val) => {
+    setCurrentIndex(val)
+    currentIndexRef.current = val
+  }
+
   const swipe = async (dir) => {
-    if (canSwipe && currentIndex < movies.length) {
+    if (canSwipe && currentIndex < allMovies.length) {
       await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
     }
   }
@@ -89,43 +119,10 @@ export default function CardsCarousel({ movies }) {
     }, 1000);
   }
 
-  useEffect(() => {
-    const getMovies = async () => {
-      dispatch(setActualPage(actualPage + 1))
-      const newMovies = await fetchMovies('', actualPage + 1)
-
-      const hasMovieOnList = (movie, movieList) =>
-        movieList.find((listMovie) => listMovie.id === movie.id)
-
-      const filteredMovies = newMovies.filter((movie) => {
-        const hasMovie = hasMovieOnList(movie, likedMoviesList) ||
-          hasMovieOnList(movie, dislikedMoviesList)
-        if (!hasMovie) return movie
-      })
-
-      console.log([...allMovies, ...filteredMovies])
-      dispatch(setAllMovies([...allMovies, ...filteredMovies]))
-    }
-
-    if (movies.length === 1) {
-      getMovies()
-    }
-  }, [movies])
-
-  useEffect(() => {
-    if (lastDirection === 'left') {
-      console.log('adiciona dislike')
-      handleAddDislikedMovie(movies[currentIndex])
-    } else if (lastDirection === 'right') {
-      console.log('adiciona like')
-      handleAddLikedMovie(movies[currentIndex])
-    }
-  }, [lastDirection])
-
-  return (
+  return isLoading ? <Spinner /> : (
     <>
       <Styled.CardsCarouselContainer>
-        {movies.map((movie, index) => {
+        {allMovies.map((movie, index) => {
           return (
             <TinderCard
               ref={childRefs[index]}
@@ -140,11 +137,11 @@ export default function CardsCarousel({ movies }) {
         })}
 
         <Styled.CardsButtonsContainer>
-          <button onClick={() => setLastDirection('left')}>
+          <button onClick={() => handleAddDislikedMovie(allMovies[currentIndex])}>
             <Styled.DislikeButton />
           </button>
 
-          <button onClick={() => setLastDirection('right')}>
+          <button onClick={() => handleAddLikedMovie(allMovies[currentIndex])}>
             <Styled.LikeButton />
           </button>
         </Styled.CardsButtonsContainer>

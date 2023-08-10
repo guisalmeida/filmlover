@@ -14,6 +14,7 @@ export const CardsCarouselContainer = styled.section`
   overflow: hidden;
   padding: 0 0 0 16rem;
   margin: 4rem 0 2rem;
+  transition: all 0.3s ease;
   
   ${media.lessThan('medium')`
     padding: 1rem;
