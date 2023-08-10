@@ -1,4 +1,5 @@
 import MovieCard from '../movieCard/movieCard'
+import AlertBox from '../alertBox/alertBox'
 import * as Styled from './moviesGrid.styled'
 
 export default function MoviesGrid({ movies, title }) {
@@ -9,7 +10,7 @@ export default function MoviesGrid({ movies, title }) {
         <Styled.MoviesGrid>
           {movies.length ? movies.map(movie => (
             <MovieCard key={movie.id} movie={movie} />
-          )) : <p>Nothing here :(</p>}
+          )) : <AlertBox>Nothing here!</AlertBox>}
         </Styled.MoviesGrid>
       </Styled.MoviesGridContainer>
     </>
