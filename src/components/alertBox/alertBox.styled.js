@@ -13,13 +13,41 @@ export const AlertBoxContainer = styled.div`
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
 
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 3;
+
+  &.show {
+    visibility: visible;
+    animation: fadeIn 0.5s;
+  }
+  &.hide {
+    visibility: hidden;
+    display: none;
+    animation: fadeOut 0.5s;
+  }
+
+  @keyframes fadeIn {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+    to {
+      bottom: 3rem;
+      opacity: 1;
+    }
+  }
+  @keyframes fadeOut {
+    from {
+      bottom: 3rem;
+      opacity: 1;
+    }
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
 
   ${media.lessThan('medium')`
     top: 200px;
@@ -35,5 +63,4 @@ export const AlertBoxContainer = styled.div`
     width: 3rem;
     margin-right: 1rem;
   }
-  
-  `
+`

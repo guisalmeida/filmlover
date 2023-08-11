@@ -4,6 +4,7 @@ import TinderCard from 'react-tinder-card'
 
 import MovieCard from '../movieCard/movieCard.jsx'
 import Spinner from '../spinner/spinner.jsx'
+import AlertBox from '../alertBox/alertBox.jsx'
 
 import {
   addLikedMovie,
@@ -26,8 +27,15 @@ export default function CardsCarousel() {
 
   const [currentIndex, setCurrentIndex] = useState(allMovies.length - 1)
   const [lastDirection, setLastDirection] = useState()
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertText, setAlertText] = useState('')
 
   const dispatch = useDispatch()
+
+  const childRefs = useMemo(() =>
+    Array(allMovies.length).fill(0).map((i) => React.createRef()),
+    [allMovies]
+  )
 
   const getMovies = async (page = 1) => {
     dispatch(setIsLoading(true))
@@ -49,11 +57,6 @@ export default function CardsCarousel() {
   useEffect(() => {
     getMovies('', actualPage)
   }, [])
-
-  const childRefs = useMemo(() =>
-    Array(allMovies.length).fill(0).map((i) => React.createRef()),
-    []
-  )
 
   const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction)
@@ -90,6 +93,8 @@ export default function CardsCarousel() {
   )
 
   const handleAddLikedMovie = (newLikedMovie) => {
+    setShowAlert(true)
+    setAlertText('Movie liked!')
     const isLiked = isOnList(newLikedMovie, likedMoviesList)
 
     if (isLiked) {
@@ -101,10 +106,13 @@ export default function CardsCarousel() {
       const filteredMovies = removeMovieFromList(newLikedMovie, allMovies)
       dispatch(setAllMovies(filteredMovies))
       dispatch(addLikedMovie(newLikedMovie))
+      setShowAlert(false)
     }, 1000);
   }
 
   const handleAddDislikedMovie = (NewDislikedMovie) => {
+    setShowAlert(true)
+    setAlertText('Movie disliked!')
     const isLiked = isOnList(NewDislikedMovie, dislikedMoviesList)
 
     if (isLiked) {
@@ -116,19 +124,25 @@ export default function CardsCarousel() {
       const filteredMovies = removeMovieFromList(NewDislikedMovie, allMovies)
       dispatch(setAllMovies(filteredMovies))
       dispatch(addDislikedMovie(NewDislikedMovie))
+      setShowAlert(false)
     }, 1000);
   }
 
   useEffect(() => {
     if (lastDirection === 'left') {
       handleAddDislikedMovie(allMovies[currentIndex])
+      setLastDirection('')
     } else if (lastDirection === 'right') {
       handleAddLikedMovie(allMovies[currentIndex])
+      setLastDirection('')
     }
   }, [lastDirection])
 
   return (
     <Styled.CardsCarouselContainer>
+
+      <AlertBox show={showAlert}>{alertText}</AlertBox>
+
       {isLoading ? <Spinner /> :
         (
           <>
