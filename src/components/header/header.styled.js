@@ -2,27 +2,33 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 
 export const Header = styled.header`
-    width: calc(100% - 16rem);
-    height: 4rem;
-    padding: 0 2rem;
-
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-
     position: fixed;
     top: 0;
     right: 0;
     z-index: 1;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    width: calc(100% - 19rem);
+    height: 4rem;
+    padding: 1rem 2rem;
+    margin: 1rem;
+    border-radius: 1rem;
+
+    background: var(--dark);
+    background: linear-gradient(to bottom right, var(--dark), rgba(224,32,65,0.2));
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 
     ${media.lessThan('medium')`
         height: 5rem;
         align-items: center;
 		width: 100%;
         padding: 1rem;
-        background: var(--background);
+        margin: 0;
+        border-radius: 0 0 1rem 1rem;
 	`}
-
     
     .header-logo {
         width: 2.5rem;

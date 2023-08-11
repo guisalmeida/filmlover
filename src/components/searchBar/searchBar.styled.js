@@ -19,8 +19,8 @@ export const SearchForm = styled.form`
 		padding: 0 1rem;
 		height: 2rem;
 		border-radius: 2rem;
-		border: 1px solid rgba(225, 225, 225, 0.5);
-		background: rgba(29, 39, 53, 0.6);
+		border: var(--border);
+		background: var(--background);
 		font-size: 1rem;
 
 		${media.lessThan('medium')`

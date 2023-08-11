@@ -15,8 +15,8 @@ export const MovieCardContainer = styled.div`
   overflow: hidden;
   margin: 0 auto;
   border-radius: 1rem;
-  background: var(--background);
-  filter: drop-shadow(2px 2px 10px rgba(0,0,0,0.3));
+  background: var(--dark);
+  filter: drop-shadow(2px 2px 10px rgba(0,0,0,0.2));
   transition: all 0.3s ease;
   
   &::before {
@@ -32,7 +32,7 @@ export const MovieCardContainer = styled.div`
     background-size: 130%;
     background-repeat: no-repeat;
     background-image: url(${(props) => props.imageUrl});
-    opacity: 0.1;
+    opacity: 0.3;
     z-index: -1;
   }
 
@@ -109,26 +109,6 @@ export const genreContainer = styled.div`
   ${media.lessThan('medium')`
     display: none;
   `}
-
-  p {
-    padding: 0.25rem 0.5rem;
-    margin-right: 0.5rem;
-    border-radius: 0.5rem;
-    border: 1px solid rgba(224, 32, 65, 0.5);
-    color: var(--highlight);
-    font-size: 0.625rem;
-    font-weight: bold;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
 `
 
 export const MovieOverview = styled.div`

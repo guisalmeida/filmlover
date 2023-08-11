@@ -12,8 +12,8 @@ export const CardsCarouselContainer = styled.section`
   height: calc(100vh - 6rem);
   position: relative;
   overflow: hidden;
-  padding: 0 0 0 16rem;
-  margin: 4rem 0 2rem;
+  padding: 0 0 0 18rem;
+  margin: 5rem 0 0;
   transition: all 0.3s ease;
   
   ${media.lessThan('medium')`
@@ -27,7 +27,7 @@ export const CardsCarouselContainer = styled.section`
     max-width: 250px;
 
     & > div {
-      filter: none;
+      filter: drop-shadow(rgba(0, 0, 0, 0.1) 2px 2px 5px);;
     }
   }
 `
@@ -48,7 +48,9 @@ export const LikeButton = styled(HeartCircle)`
   border-radius: 50%;
   width: 4rem;
   transition: all 0.3s ease;
-  background: rgba(29, 39, 53, 0.6);
+  background: var(--dark);
+  background: var(--background-gradient-webkit);
+  background: var(--background-gradient);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
@@ -66,7 +68,9 @@ export const DislikeButton = styled(HeartDislikeCircle)`
   border-radius: 50%;
   width: 4rem;
   transition: all 0.3s ease;
-  background: rgba(29, 39, 53, 0.6);
+  background: var(--dark);
+  background: var(--background-gradient-webkit);
+  background: var(--background-gradient);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);

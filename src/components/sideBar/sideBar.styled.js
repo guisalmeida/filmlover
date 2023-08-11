@@ -63,13 +63,30 @@ export const MenuContainer = styled.nav`
 
 export const HomeIcon = styled(Home)`
 	width: 1.25rem;
+	color: white;
+  transition: all 0.3s ease;
+  
+  ${MenuContainer} > a.active & {
 	color: var(--highlight);
+  }
 `
 export const StarIcon = styled(Star)`
 	width: 1.25rem;
 	color: white;
+  transition: all 0.3s ease;
+
+  ${MenuContainer} > a.active & {
+    color: var(--highlight);
+  }
 `
 export const DislikeIcon = styled(HeartDislike)`
 	width: 1.25rem;
 	color: white;
+  transition: all 0.3s ease;
+
+  ${MenuContainer} > a.active & {
+    color: var(--highlight);
+  }
+`
+
 `

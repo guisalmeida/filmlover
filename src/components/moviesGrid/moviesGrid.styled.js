@@ -2,14 +2,14 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 
 export const MoviesGridContainer = styled.section`
-  margin: calc(4rem + 60px) 0 4rem 18rem;
-  padding: 0 2rem;
+  margin: 7rem 0px 4rem 18rem;
+  padding: 0 0 0 1rem;
   width: calc(100% - 18rem);
   
   ${media.lessThan('medium')`
     padding: 0 1rem;
     width: 100%;
-    margin: 6rem 0 4rem;
+    margin: 6rem 0 5rem;
 	`}
   
   h2 {
@@ -20,6 +20,7 @@ export const MoviesGridContainer = styled.section`
     ${media.lessThan('medium')`
       font-size: 1rem;
       margin-bottom: 1rem;
+      text-align: center;
     `}
   }
 `
@@ -32,8 +33,9 @@ export const MoviesGrid = styled.div`
 
   ${media.lessThan('medium')`
     width: 100%;
+    max-width: 320px;
     grid-column-gap: 1rem;
     grid-row-gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 320px));
 	`}
 `

@@ -6,7 +6,11 @@ const GlobalStyles = createGlobalStyle`
 
 :root {   
     --highlight: #E02041;
-    --background: #1d2735;
+    --dark: #1c1c23;
+    --background: #13131a;
+    --background-gradient: linear-gradient(to bottom right, var(--dark), rgba(224,32,65,0.2));
+    --background-gradient-webkit: -webkit-linear-gradient(to bottom right, var(--dark), rgba(224,32,65,0.2));
+    --border: 1px solid rgba(225,225,225,0.3);
 
     --break-huge: 1440px;
     --break-large: 1170px;
@@ -41,14 +45,7 @@ html input {
 
 body {
     color: white;
-    /* fallback for old browsers */
     background: var(--background);
-
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to bottom, var(--background), var(--highlight));
-    
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to bottom, var(--background), var(--highlight));
 
     min-height: calc(100vh - 6rem);
     overflow-x: hidden;
