@@ -119,6 +119,14 @@ export default function CardsCarousel() {
     }, 1000);
   }
 
+  useEffect(() => {
+    if (lastDirection === 'left') {
+      handleAddDislikedMovie(allMovies[currentIndex])
+    } else if (lastDirection === 'right') {
+      handleAddLikedMovie(allMovies[currentIndex])
+    }
+  }, [lastDirection])
+
   return (
     <Styled.CardsCarouselContainer>
       {isLoading ? <Spinner /> :
@@ -144,14 +152,14 @@ export default function CardsCarousel() {
               <button
                 type="button"
                 title="Dislike Movie"
-                onClick={() => handleAddDislikedMovie(allMovies[currentIndex])}>
+                onClick={() => setLastDirection('left')}>
                 <Styled.DislikeButton />
               </button>
 
               <button
                 type="button"
                 title="Like Movie"
-                onClick={() => handleAddLikedMovie(allMovies[currentIndex])}>
+                onClick={() => setLastDirection('right')}>
                 <Styled.LikeButton />
               </button>
             </Styled.CardsButtonsContainer>
