@@ -4,6 +4,7 @@ import media from 'styled-media-query'
 import { HeartCircle } from '@styled-icons/ionicons-outline/HeartCircle'
 import { HeartDislikeCircle } from '@styled-icons/ionicons-outline/HeartDislikeCircle'
 import { DeleteOutline } from '@styled-icons/typicons/DeleteOutline'
+import { Star } from '@styled-icons/evaicons-solid/Star'
 
 export const MovieCardContainer = styled.div`
   position: relative;
@@ -59,8 +60,7 @@ export const MovieCardActions = styled.div`
   h3 {
     font-size: 1rem;
     font-weight: bold;
-    text-align: center;
-    margin-bottom: 0.5rem;
+    text-align: left;
     line-height: 1.2;
     
     overflow: hidden;
@@ -70,8 +70,20 @@ export const MovieCardActions = styled.div`
     -webkit-box-orient: vertical;
     
     ${media.lessThan('medium')`
-      margin: 0;
       font-size: 0.75rem;
+    `}
+  }
+
+  .title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.75rem;
+
+    ${media.lessThan('medium')`
+      margin: 0;
+      flex-direction: column;
     `}
   }
 
@@ -80,19 +92,17 @@ export const MovieCardActions = styled.div`
     font-weight: bold;
     font-size: 0.75rem;
     background-color: orange;
-    padding: 0.5rem 1rem;
-    border-radius: 1rem;
-  }
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
 
-  .flag {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: black;
-    padding: 1rem;
-    border-radius: 1rem;
-    font-weight: bold;
-    font-size: 3rem;
+    ${media.lessThan('medium')`
+      margin: 0.5rem 0 0;
+      flex-direction: column;
+    `}
   }
 `
 
@@ -100,7 +110,7 @@ export const genreContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   width: 100%;
   height: 1.25rem;
   overflow: hidden;
@@ -121,11 +131,13 @@ export const MovieOverview = styled.div`
   padding: 1rem;
   margin: 1rem;
   
-  background: rgba(29, 39, 53, 0.6);
+  background: rgba(19, 19, 26, 0.6);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
+
+  user-select: none;
 
   @media (hover: hover){
     ${MovieCardContainer}:hover & {
@@ -168,6 +180,8 @@ export const LikeButton = styled(HeartCircle)`
   width: 3rem;
   transition: all 0.3s ease;
   background: rgba(29, 39, 53, 0.6);
+  background: var(--background-gradient-webkit);
+  background: var(--background-gradient);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
@@ -185,7 +199,9 @@ export const DislikeButton = styled(HeartDislikeCircle)`
   border-radius: 50%;
   width: 3rem;
   transition: all 0.3s ease;
-  background: rgba(29, 39, 53, 0.6);
+  background: var(--dark);
+  background: var(--background-gradient-webkit);
+  background: var(--background-gradient);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
@@ -219,4 +235,14 @@ export const RemoveIcon = styled(DeleteOutline)`
       color: var(--highlight);
     }
   }
+`
+
+export const StarIcon = styled(Star)`
+	width: 0.75rem;
+	color: black;
+  margin-right: 0.25rem;
+
+  ${media.lessThan('medium')`
+    margin-right: 0;
+  `}
 `

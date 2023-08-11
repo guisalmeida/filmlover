@@ -125,9 +125,8 @@ export default function MovieCard({ movie }) {
 				<Styled.MovieOverview>
 					<p>{movie.overview}</p>
 				</Styled.MovieOverview>
-				: null}
-
-			{/* <p className='flag'>like</p> */}
+				: null
+			}
 
 			{
 				showCloseButton &&
@@ -146,8 +145,13 @@ export default function MovieCard({ movie }) {
 			}
 
 			<Styled.MovieCardActions>
-				<h3>{movie.title}</h3>
-				{/* <p className='votes'>TMDB: {movie.vote_average}</p> */}
+				<div className='title-container'>
+					<h3>{movie.title}</h3>
+					<p className='votes'>
+						<Styled.StarIcon />
+						{movie.vote_average.toFixed(1)}
+					</p>
+				</div>
 
 				<Styled.genreContainer>
 					{movie.genre_ids.map((cod, i) => {
