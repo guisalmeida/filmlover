@@ -12,20 +12,26 @@ export const SideBar = styled.aside`
   top: 0;
   left: 0;
 
-  width: 16rem;
+  width: 18rem;
   height: 100vh;
-  padding: 2rem;
-  /* background: var(--background);
-  border-radius: 1rem;
-  filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.3)); */
-  /* margin: 1rem; */
+  padding: 1rem;
   z-index: 2;
 
-  /* align-items: center; */
+  align-items: center;
   flex-direction: column;
 
   .logo {
     width: 10rem;
+    margin-top: 1rem;
+  }
+
+  h3.genre-title {
+    margin-top: 2rem;
+    font-weight: bold;
+
+    ${media.lessThan('medium')`
+      display: none;
+    `}
   }
 	
 	${media.greaterThan('medium')`
@@ -34,30 +40,43 @@ export const SideBar = styled.aside`
 `
 
 export const MenuContainer = styled.nav`
-  margin-top: 3rem;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
+  background: var(--dark);
+  padding: 0;
+  border-radius: 1rem;
+  width: 100%;
   
   a {
     text-decoration: none;
     font-size: 1rem;
     color: white;
-    margin-bottom: 1rem;
+    padding: 1rem;
     display: flex;
     align-items: center;
     transition: all 0.3s ease;
+    background: var(--dark);
+    border-radius:1rem;
+    
+    &.active {
+      background: -webkit-linear-gradient(to bottom right, var(--dark), rgba(224,32,65,0.2));
+      background: linear-gradient(to bottom right, var(--dark), rgba(224,32,65,0.2));
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
     
     @media (hover: hover){
       &:hover {
         color: var(--highlight);
       }
     }
-  }
-  
+  }  
 
   p {
     margin-left: 0.5rem;
-
   }
 `
 
@@ -67,7 +86,7 @@ export const HomeIcon = styled(Home)`
   transition: all 0.3s ease;
   
   ${MenuContainer} > a.active & {
-	color: var(--highlight);
+    color: var(--highlight);
   }
 `
 export const StarIcon = styled(Star)`
@@ -89,4 +108,23 @@ export const DislikeIcon = styled(HeartDislike)`
   }
 `
 
+export const GenreContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem 1rem 0.5rem;
+  margin-top: 1rem;
+  width: 100%;
+  border-radius: 1rem;
+  background: var(--dark);
+  background: var(--background-gradient-webkit);
+  background: var(--background-gradient);
+
+  ${media.lessThan('medium')`
+		display: none;
+	`}
+
+  .genre-button {
+    cursor: pointer;
+  }
 `

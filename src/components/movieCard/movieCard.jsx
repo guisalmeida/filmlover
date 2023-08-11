@@ -8,6 +8,8 @@ import {
 	setDislikedMovies
 } from '../../redux/actions/moviesAction'
 
+import GenreBox from '../genreBox/genreBox'
+
 import { MOVIE_GENRES, IMAGE_URL } from '../../utils/api'
 
 import * as Styled from './movieCard.styled'
@@ -151,7 +153,7 @@ export default function MovieCard({ movie }) {
 					{movie.genre_ids.map((cod, i) => {
 						if (i > 2) return
 						const genre = MOVIE_GENRES.find((m) => m.id === cod)
-						return (<p key={cod}>{genre.name}</p>)
+						return (<GenreBox key={cod}>{genre.name}</GenreBox>)
 					})}
 				</Styled.genreContainer>
 

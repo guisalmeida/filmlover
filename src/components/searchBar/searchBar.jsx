@@ -10,14 +10,14 @@ import * as Styled from './searchBar.styled.js'
 export default function SearchBar() {
   const [searchKey, setSearchKey] = useState("")
   const dispatch = useDispatch()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const searchMovies = async (e) => {
     e.preventDefault()
     const searchMovies = await fetchMovies(searchKey)
     dispatch(setSearchMovies(searchMovies))
     setSearchKey("")
-    navigate("/search");
+    navigate("/search", { state: { title: searchKey } });
   }
 
   return (

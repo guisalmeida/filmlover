@@ -82,14 +82,15 @@ export const MOVIE_GENRES = [
   }
 ]
 
-export const fetchMovies = async (searchKey = "", page = 1) => {
+export const fetchMovies = async (searchKey = "", page = 1, genre = null) => {
   const type = searchKey ? "search" : "discover"
   try {
     const { data } = await axios.get(`${API_URL}/${type}/movie`, {
       params: {
         api_key: API_KEY,
         query: searchKey,
-        page
+        page: page,
+        ...(genre && { with_genres: genre })
       }
     })
     return data.results

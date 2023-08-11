@@ -31,8 +31,7 @@ export default function CardsCarousel() {
 
   const getMovies = async (page = 1) => {
     dispatch(setIsLoading(true))
-    const movies = await fetchMovies('', page)
-
+    const movies = await fetchMovies(undefined, page)
     const hasMovieOnList = (movie, movieList) =>
       movieList.find((listMovie) => listMovie.id === movie.id)
 
@@ -42,6 +41,7 @@ export default function CardsCarousel() {
       if (!hasMovie) return movie
     })
 
+    setCurrentIndex(filteredMovies.length - 1)
     dispatch(setAllMovies(filteredMovies.reverse()))
     dispatch(setIsLoading(false))
   }
@@ -78,7 +78,7 @@ export default function CardsCarousel() {
 
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < allMovies.length) {
-      await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+      await childRefs[currentIndex].current.swipe(dir)
     }
   }
 
@@ -119,34 +119,47 @@ export default function CardsCarousel() {
     }, 1000);
   }
 
-  return isLoading ? <Spinner /> : (
-    <>
-      <Styled.CardsCarouselContainer>
-        {allMovies.map((movie, index) => {
-          return (
-            <TinderCard
-              ref={childRefs[index]}
-              className='swipe'
-              key={movie.id}
-              onSwipe={(dir) => swiped(dir, movie.title, index)}
-              onCardLeftScreen={() => outOfFrame(movie.title, index)}
-            >
-              <MovieCard movie={movie} />
-            </TinderCard>
-          )
-        })}
+  return (
+    <Styled.CardsCarouselContainer>
+      {isLoading ? <Spinner /> :
+        (
+          <>
+            {
+              allMovies.map((movie, index) => {
+                return (
+                  <TinderCard
+                    ref={childRefs[index]}
+                    className='swipe'
+                    key={movie.id}
+                    onSwipe={(dir) => swiped(dir, movie.title, index)}
+                    onCardLeftScreen={() => outOfFrame(movie.title, index)}
+                  >
+                    <MovieCard movie={movie} />
+                  </TinderCard>
+                )
+              })
+            }
 
-        <Styled.CardsButtonsContainer>
-          <button onClick={() => handleAddDislikedMovie(allMovies[currentIndex])}>
-            <Styled.DislikeButton />
-          </button>
+            < Styled.CardsButtonsContainer >
+              <button
+                type="button"
+                title="Dislike Movie"
+                onClick={() => handleAddDislikedMovie(allMovies[currentIndex])}>
+                <Styled.DislikeButton />
+              </button>
 
-          <button onClick={() => handleAddLikedMovie(allMovies[currentIndex])}>
-            <Styled.LikeButton />
-          </button>
-        </Styled.CardsButtonsContainer>
-      </Styled.CardsCarouselContainer>
-    </>
+              <button
+                type="button"
+                title="Like Movie"
+                onClick={() => handleAddLikedMovie(allMovies[currentIndex])}>
+                <Styled.LikeButton />
+              </button>
+            </Styled.CardsButtonsContainer>
+          </>
+        )
+      }
+
+    </Styled.CardsCarouselContainer >
   )
 }
 

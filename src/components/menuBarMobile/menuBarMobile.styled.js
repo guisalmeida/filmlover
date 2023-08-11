@@ -37,12 +37,24 @@ export const MenuBar = styled.nav`
 export const HomeIcon = styled(Home)`
 	width: 2rem;
 	color: white;
+
+	${MenuBar} > a.active & {
+    color: var(--highlight);
+  }
 `
 export const StarIcon = styled(Star)`
 	width: 2rem;
 	color: white;
+
+	${MenuBar} > a.active & {
+    color: var(--highlight);
+  }
 `
 export const DislikeIcon = styled(HeartDislike)`
 	width: 2rem;
 	color: white;
+
+	${MenuBar} > a.active & {
+    color: var(--highlight);
+  }
 `

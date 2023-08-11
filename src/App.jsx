@@ -1,9 +1,4 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-
-import { setAllMovies, setIsLoading } from './redux/actions/moviesAction'
-import { fetchMovies } from './utils/api'
 
 import Layout from './routes/layout/layout'
 import Home from './routes/home/home'
