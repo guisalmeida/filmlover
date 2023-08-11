@@ -56,6 +56,10 @@ export const LikeButton = styled(HeartCircle)`
   -webkit-backdrop-filter: blur(3px);
   color: white;
   cursor: pointer;
+
+  ${media.lessThan('medium')`
+    margin-right: 1rem;
+	`}
   
   @media (hover: hover){
     &:hover {
@@ -76,6 +80,10 @@ export const DislikeButton = styled(HeartDislikeCircle)`
   -webkit-backdrop-filter: blur(3px);
   color: white;
   cursor: pointer;
+
+  ${media.lessThan('medium')`
+    margin-left: 1rem;
+	`}
   
   @media (hover: hover){
     &:hover {

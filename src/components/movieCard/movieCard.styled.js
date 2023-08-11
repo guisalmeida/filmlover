@@ -54,7 +54,6 @@ export const MovieCardActions = styled.div`
   
   ${media.lessThan('medium')`
     margin: 0;
-    font-size: 0.75rem;
   `}
 
   h3 {

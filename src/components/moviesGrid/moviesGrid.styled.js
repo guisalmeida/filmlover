@@ -10,6 +10,9 @@ export const MoviesGridContainer = styled.section`
     padding: 0 1rem;
     width: 100%;
     margin: 6rem 0 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 	`}
   
   h2 {
@@ -33,9 +36,9 @@ export const MoviesGrid = styled.div`
 
   ${media.lessThan('medium')`
     width: 100%;
-    max-width: 320px;
+    max-width: 295px;
     grid-column-gap: 1rem;
     grid-row-gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 320px));
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
 	`}
 `
