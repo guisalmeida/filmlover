@@ -24,6 +24,9 @@ Match with your favorite movies and shame the other ones.
 
 ### TODO:  
 
-- [ ] Improve lazy loading (blurhash)
-- [ ] Typescript
-- [ ] Unit Tests
+- [ ] Implement [redux toolkit](https://redux-toolkit.js.org/)
+- [ ] Implement skeleton to improve animations
+- [ ] Implement [radix-ui](https://www.radix-ui.com/primitives/docs/overview/introduction) to improve and test A11Y
+- [ ] Implement [blurhash](https://blurha.sh/) to improve lazy loading
+- [ ] Implement Typescript
+- [ ] Implement Unit Tests
