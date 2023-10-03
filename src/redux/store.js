@@ -1,19 +1,23 @@
-import { legacy_createStore as createStore } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import { rootReducer } from './reducers/rootReducer'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 
-const persistConfig = {
-  key: 'root',
-  storage,
+// import { legacy_createStore as createStore } from 'redux'
+// import { persistStore, persistReducer } from 'redux-persist'
+// import storage from 'redux-persist/lib/storage'
+
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+// }
+
+// const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+export const store = configureStore({
+  reducer: rootReducer
 }
-
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-
-export const store = createStore(
-  persistedReducer,
-  undefined,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  // persistedReducer,
+  // undefined,
+  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
-export const persistor = persistStore(store)
+// export const persistor = persistStore(store)
