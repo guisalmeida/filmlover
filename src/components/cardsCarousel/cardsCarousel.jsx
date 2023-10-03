@@ -12,7 +12,7 @@ import {
   setAllMovies,
   setActualPage,
   setIsLoading
-} from '../../redux/actions/moviesAction'
+} from '../../redux/reducers/moviesReducer'
 
 import { fetchMovies } from '../../utils/api'
 
