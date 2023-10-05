@@ -98,5 +98,4 @@ export const fetchMovies = async (searchKey = "", page = 1, genre = null) => {
   } catch (error) {
     console.log('Error creating the user!', error.message);
   }
-
 }

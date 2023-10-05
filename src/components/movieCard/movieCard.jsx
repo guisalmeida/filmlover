@@ -6,7 +6,7 @@ import {
 	setAllMovies,
 	setLikedMovies,
 	setDislikedMovies
-} from '../../redux/actions/moviesAction'
+} from '../../redux/reducers/moviesReducer'
 
 import GenreBox from '../genreBox/genreBox'
 

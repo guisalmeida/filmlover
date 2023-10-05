@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
-import { setSearchMovies } from '../../redux/actions/moviesAction'
+import { setSearchMovies } from '../../redux/reducers/moviesReducer'
 import { MOVIE_GENRES, fetchMovies } from '../../utils/api'
 import GenreBox from '../genreBox/genreBox'
 
