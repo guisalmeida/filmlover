@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import media from 'styled-media-query'
 
-export const Header = styled.header`
+export const HeaderContainer = styled.header`
     position: fixed;
     top: 0;
     right: 0;

@@ -2,9 +2,9 @@ import React, { useState, useMemo, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TinderCard from 'react-tinder-card'
 
-import MovieCard from '../movieCard/movieCard.jsx'
-import Spinner from '../spinner/spinner.jsx'
-import AlertBox from '../alertBox/alertBox.jsx'
+import MovieCard from '../movieCard/movieCard'
+import Spinner from '../spinner/spinner'
+import AlertBox from '../alertBox/alertBox'
 
 import {
   addLikedMovie,
@@ -16,7 +16,7 @@ import {
 
 import { fetchMovies } from '../../utils/api'
 
-import * as Styled from './cardsCarousel.styled.js'
+import * as Styled from './cardsCarousel.styled'
 
 export default function CardsCarousel() {
   const likedMoviesList = useSelector((state) => state.movies.liked)

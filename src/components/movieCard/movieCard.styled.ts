@@ -6,7 +6,11 @@ import { HeartDislikeCircle } from '@styled-icons/ionicons-outline/HeartDislikeC
 import { DeleteOutline } from '@styled-icons/typicons/DeleteOutline'
 import { Star } from '@styled-icons/evaicons-solid/Star'
 
-export const MovieCardContainer = styled.div`
+type MovieCardContainerProps = {
+  $imageUrl: string
+}
+
+export const MovieCardContainer = styled.div<MovieCardContainerProps>`
   position: relative;
   display: flex;
   align-items: center;
@@ -32,7 +36,7 @@ export const MovieCardContainer = styled.div`
     background-position: bottom center;
     background-size: 130%;
     background-repeat: no-repeat;
-    background-image: url(${(props) => props.imageUrl});
+    background-image: url(${(props) => props.$imageUrl});
     opacity: 0.3;
     z-index: -1;
   }

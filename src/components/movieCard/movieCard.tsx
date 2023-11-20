@@ -13,8 +13,13 @@ import GenreBox from '../genreBox/genreBox'
 import { MOVIE_GENRES, IMAGE_URL } from '../../utils/api'
 
 import * as Styled from './movieCard.styled'
+import React from 'react'
 
-export default function MovieCard({ movie }) {
+type MovieCardProps = {
+	movie: TMovie
+}
+
+export default function MovieCard({ movie }: MovieCardProps): React.JSX.Element {
 	const dispatch = useDispatch()
 
 	const likedMoviesList = useSelector((state) => state.movies.liked)
@@ -93,7 +98,7 @@ export default function MovieCard({ movie }) {
 	const imageUrl = movie.poster_path ? IMAGE_URL + movie.poster_path : '/not-found.png'
 
 	return (
-		<Styled.MovieCardContainer imageUrl={imageUrl} >
+		<Styled.MovieCardContainer $imageUrl={imageUrl} >
 			<img
 				className='imagePoster'
 				src={imageUrl}

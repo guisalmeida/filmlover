@@ -7,12 +7,13 @@ import GenreBox from '../genreBox/genreBox'
 
 import Logo from '../../assets/logo_h.svg'
 import * as Styled from './sideBar.styled'
+import { ChangeEvent } from 'react'
 
-export default function SideBar() {
+export default function SideBar(): React.JSX.Element {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const searchMovies = async (e, movie) => {
+  const searchMovies = async (e, movie: TMovie):  => {
     e.preventDefault()
     const searchMovies = await fetchMovies(undefined, undefined, movie.id)
     dispatch(setSearchMovies(searchMovies))

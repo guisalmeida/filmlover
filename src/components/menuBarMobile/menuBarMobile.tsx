@@ -1,9 +1,10 @@
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import User from '../../assets/user.jpeg'
 
-import * as Styled from './menuBarMobile.styled.js'
+import * as Styled from './menuBarMobile.styled'
 
-export default function MenuBarMobile() {
+export default function MenuBarMobile(): React.JSX.Element {
   return (
     <Styled.MenuBarMobile>
       <Styled.MenuBar>
