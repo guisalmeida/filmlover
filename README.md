@@ -25,9 +25,8 @@ Match with your favorite movies and shame the other ones.
 ### TODO:  
 
 - [x] Implement [redux toolkit](https://redux-toolkit.js.org/)
-- [ ] Update dependence react-use-gesture@5.2.4 for @use-gesture/react instead
+- [x] Implement Typescript
 - [ ] Implement skeleton to improve animations
 - [ ] Implement [radix-ui](https://www.radix-ui.com/primitives/docs/overview/introduction) to improve and test A11Y
 - [ ] Implement [blurhash](https://blurha.sh/) to improve lazy loading
-- [ ] Implement Typescript
 - [ ] Implement Unit Tests
