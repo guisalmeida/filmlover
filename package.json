@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint --ignore-path .eslintignore --fix .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "./node_modules/.bin/prettier src/* --write"
   },
   "dependencies": {
     "@react-spring/web": "^9.5.5",
