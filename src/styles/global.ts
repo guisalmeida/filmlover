@@ -1,6 +1,5 @@
-import { createGlobalStyle } from "styled-components"
-import media from 'styled-media-query'
-import "./reset.css";
+import { createGlobalStyle } from 'styled-components';
+import './reset.css';
 
 const GlobalStyles = createGlobalStyle`
 
@@ -62,5 +61,5 @@ button {
     width: 100%;
     max-width: var(--break-large);
 }
-`
+`;
 export default GlobalStyles;

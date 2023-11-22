@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const GenreBoxContainer = styled.p`
+const GenreBoxContainer = styled.p`
   padding: 0.25rem 0.5rem;
   margin: 0 0.5rem 0.5rem 0;
   border-radius: 0.5rem;
@@ -19,4 +19,6 @@ export const GenreBoxContainer = styled.p`
   &:last-child {
     margin-right: 0;
   }
-`
+`;
+
+export default GenreBoxContainer;

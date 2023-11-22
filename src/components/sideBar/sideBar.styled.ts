@@ -1,10 +1,9 @@
-import styled from 'styled-components'
-import media from 'styled-media-query'
+import styled from 'styled-components';
+import media from 'styled-media-query';
 
-
-import { Home } from '@styled-icons/boxicons-solid/Home'
-import { Star } from '@styled-icons/evaicons-solid/Star'
-import { HeartDislike } from '@styled-icons/ionicons-solid/HeartDislike'
+import { Home } from '@styled-icons/boxicons-solid/Home';
+import { Star } from '@styled-icons/evaicons-solid/Star';
+import { HeartDislike } from '@styled-icons/ionicons-solid/HeartDislike';
 
 export const SideBar = styled.aside`
   display: none;
@@ -33,11 +32,11 @@ export const SideBar = styled.aside`
       display: none;
     `}
   }
-	
-	${media.greaterThan('medium')`
+
+  ${media.greaterThan('medium')`
 		display: flex;
 	`}
-`
+`;
 
 export const MenuContainer = styled.nav`
   margin-top: 2rem;
@@ -47,7 +46,7 @@ export const MenuContainer = styled.nav`
   padding: 0;
   border-radius: 1rem;
   width: 100%;
-  
+
   a {
     text-decoration: none;
     font-size: 1rem;
@@ -57,56 +56,64 @@ export const MenuContainer = styled.nav`
     align-items: center;
     transition: all 0.3s ease;
     background: var(--dark);
-    border-radius:1rem;
-    
+    border-radius: 1rem;
+
     &.active {
-      background: -webkit-linear-gradient(to bottom right, var(--dark), rgba(224,32,65,0.2));
-      background: linear-gradient(to bottom right, var(--dark), rgba(224,32,65,0.2));
+      background: -webkit-linear-gradient(
+        to bottom right,
+        var(--dark),
+        rgba(224, 32, 65, 0.2)
+      );
+      background: linear-gradient(
+        to bottom right,
+        var(--dark),
+        rgba(224, 32, 65, 0.2)
+      );
     }
 
     &:last-child {
       margin-bottom: 0;
     }
-    
-    @media (hover: hover){
+
+    @media (hover: hover) {
       &:hover {
         color: var(--highlight);
       }
     }
-  }  
+  }
 
   p {
     margin-left: 0.5rem;
   }
-`
+`;
 
 export const HomeIcon = styled(Home)`
-	width: 1.25rem;
-	color: white;
+  width: 1.25rem;
+  color: white;
   transition: all 0.3s ease;
-  
+
   ${MenuContainer} > a.active & {
     color: var(--highlight);
   }
-`
+`;
 export const StarIcon = styled(Star)`
-	width: 1.25rem;
-	color: white;
+  width: 1.25rem;
+  color: white;
   transition: all 0.3s ease;
 
   ${MenuContainer} > a.active & {
     color: var(--highlight);
   }
-`
+`;
 export const DislikeIcon = styled(HeartDislike)`
-	width: 1.25rem;
-	color: white;
+  width: 1.25rem;
+  color: white;
   transition: all 0.3s ease;
 
   ${MenuContainer} > a.active & {
     color: var(--highlight);
   }
-`
+`;
 
 export const GenreContainer = styled.div`
   display: flex;
@@ -127,4 +134,4 @@ export const GenreContainer = styled.div`
   .genre-button {
     cursor: pointer;
   }
-`
+`;

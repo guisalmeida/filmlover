@@ -1,183 +1,204 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import TinderCard from 'react-tinder-card'
-
-import MovieCard from '../movieCard/movieCard'
-import Spinner from '../spinner/spinner'
-import AlertBox from '../alertBox/alertBox'
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import TinderCard from 'react-tinder-card';
+import { fetchMovies } from '../../utils/api';
 
 import {
   addLikedMovie,
   addDislikedMovie,
   setAllMovies,
   setActualPage,
-  setIsLoading
-} from '../../redux/reducers/moviesReducer'
+  setIsLoading,
+  TMovie,
+} from '../../redux/reducers/moviesReducer';
 
-import { fetchMovies } from '../../utils/api'
+import {
+  selectActualPage,
+  selectAllMovies,
+  selectDislikedMovies,
+  selectIsLoading,
+  selectLikedMovies,
+} from '../../redux/selectors/moviesSelector';
 
-import * as Styled from './cardsCarousel.styled'
+import MovieCard from '../movieCard/movieCard';
+import Spinner from '../spinner/spinner';
+import AlertBox from '../alertBox/alertBox';
+
+import * as Styled from './cardsCarousel.styled';
 
 export default function CardsCarousel() {
-  const likedMoviesList = useSelector((state) => state.movies.liked)
-  const dislikedMoviesList = useSelector((state) => state.movies.disliked)
-  const allMovies = useSelector((state) => state.movies.all)
-  const actualPage = useSelector((state) => state.movies.actualPage)
-  const isLoading = useSelector((state) => state.movies.isLoading)
+  const likedMoviesList = useSelector(selectLikedMovies);
+  const dislikedMoviesList = useSelector(selectDislikedMovies);
+  const allMovies = useSelector(selectAllMovies);
+  const actualPage = useSelector(selectActualPage);
+  const isLoading = useSelector(selectIsLoading);
 
-  const [currentIndex, setCurrentIndex] = useState(allMovies.length - 1)
-  const [showAlert, setShowAlert] = useState(false)
-  const [alertText, setAlertText] = useState('')
+  const [currentIndex, setCurrentIndex] = useState(allMovies.length - 1);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState('');
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const childRefs = useMemo(() =>
-    Array(allMovies.length).fill(0).map(() => React.createRef()),
+  const currentIndexRef = useRef(currentIndex);
+  const canSwipe = currentIndex >= 0;
+  const childRefs = useMemo(
+    () =>
+      Array(allMovies.length)
+        .fill(0)
+        .map(() => React.createRef()),
     [allMovies]
-  )
+  );
 
-  const getMovies = async (page = 1) => {
-    dispatch(setIsLoading(true))
-    const movies = await fetchMovies("", page)
-    const hasMovieOnList = (movie, movieList) =>
-      movieList.find((listMovie) => listMovie.id === movie.id)
+  const swipe = async (dir: string) => {
+    if (canSwipe && currentIndex < allMovies.length) {
+      // @ts-ignore
+      await childRefs[currentIndex].current.swipe(dir);
+    }
+  };
 
-    const filteredMovies = movies.filter((movie) => {
-      const hasMovie = hasMovieOnList(movie, likedMoviesList) ||
-        hasMovieOnList(movie, dislikedMoviesList)
-      if (!hasMovie) return movie
-    })
+  const removeMovieFromList = (movieToRemove: TMovie, movieList: TMovie[]) =>
+    movieList.filter((movie) => movie.id !== movieToRemove.id);
 
-    setCurrentIndex(filteredMovies.length - 1)
-    dispatch(setAllMovies(filteredMovies.reverse()))
-    dispatch(setIsLoading(false))
-  }
+  const isOnList = (movie: TMovie, movieList: TMovie[]) =>
+    Boolean(movieList.find((listMovie) => listMovie.id === movie.id));
 
-  const currentIndexRef = useRef(currentIndex)
-  const canSwipe = currentIndex >= 0
+  const handleAddLikedMovie = (newLikedMovie: TMovie) => {
+    setShowAlert(true);
+    setAlertText('Movie liked!');
+    const isLiked = isOnList(newLikedMovie, likedMoviesList);
+
+    if (isLiked) {
+      return console.log('It is already on the liked list!');
+    }
+
+    swipe('right');
+    setTimeout(() => {
+      const filteredMovies = removeMovieFromList(newLikedMovie, allMovies);
+      dispatch(setAllMovies(filteredMovies));
+      dispatch(addLikedMovie(newLikedMovie));
+      setShowAlert(false);
+    }, 1000);
+
+    return console.log('Movie liked!');
+  };
+
+  const handleAddDislikedMovie = (NewDislikedMovie: TMovie) => {
+    setShowAlert(true);
+    setAlertText('Movie disliked!');
+    const isLiked = isOnList(NewDislikedMovie, dislikedMoviesList);
+
+    if (isLiked) {
+      return console.log('It is already on the disliked list!');
+    }
+
+    swipe('left');
+    setTimeout(() => {
+      const filteredMovies = removeMovieFromList(NewDislikedMovie, allMovies);
+      dispatch(setAllMovies(filteredMovies));
+      dispatch(addDislikedMovie(NewDislikedMovie));
+      setShowAlert(false);
+    }, 1000);
+
+    return console.log('Movie disliked!');
+  };
 
   const fetchMoreMovies = async () => {
     if (allMovies.length <= 2) {
-      const newMovies = await fetchMovies('', actualPage + 1)
-      dispatch(setAllMovies([ ...newMovies, ...allMovies]))
-      dispatch(setActualPage(actualPage + 1))
+      const newMovies = await fetchMovies('', actualPage + 1);
+      if (newMovies) {
+        dispatch(setAllMovies([...newMovies, ...allMovies]));
+        dispatch(setActualPage(actualPage + 1));
+      }
     }
-  }
+  };
 
-  const updateCurrentIndex = (val) => {
-    setCurrentIndex(val)
-    currentIndexRef.current = val
-  }
+  const updateCurrentIndex = (val: number) => {
+    setCurrentIndex(val);
+    currentIndexRef.current = val;
+  };
 
-  const swipe = async (dir) => {
-    if (canSwipe && currentIndex < allMovies.length) {
-      await childRefs[currentIndex].current.swipe(dir)
-    }
-  }
+  const swiped = (index: number) => {
+    updateCurrentIndex(index - 1);
+  };
 
-  const swiped = (index) => {
-    updateCurrentIndex(index - 1)
-  }
-
-  const removeMovieFromList = (movieToRemove, movieList) =>
-    movieList.filter((movie) => movie.id !== movieToRemove.id)
-
-  const isOnList = (movie, movieList) => Boolean(
-    movieList.find((listMovie) => listMovie.id === movie.id)
-  )
-
-  const handleAddLikedMovie = (newLikedMovie) => {
-    setShowAlert(true)
-    setAlertText('Movie liked!')
-    const isLiked = isOnList(newLikedMovie, likedMoviesList)
-
-    if (isLiked) {
-      return console.log('It is already on the liked list!')
-    }
-
-    swipe('right')
-    setTimeout(() => {
-      const filteredMovies = removeMovieFromList(newLikedMovie, allMovies)
-      dispatch(setAllMovies(filteredMovies))
-      dispatch(addLikedMovie(newLikedMovie))
-      setShowAlert(false)
-    }, 1000);
-  }
-
-  const handleAddDislikedMovie = (NewDislikedMovie) => {
-    setShowAlert(true)
-    setAlertText('Movie disliked!')
-    const isLiked = isOnList(NewDislikedMovie, dislikedMoviesList)
-
-    if (isLiked) {
-      return console.log('It is already on the disliked list!')
-    }
-
-    swipe('left')
-    setTimeout(() => {
-      const filteredMovies = removeMovieFromList(NewDislikedMovie, allMovies)
-      dispatch(setAllMovies(filteredMovies))
-      dispatch(addDislikedMovie(NewDislikedMovie))
-      setShowAlert(false)
-    }, 1000);
-  }
-
-  const handleDirection = (direction) => {
+  const handleDirection = (direction = '') => {
     if (direction === 'left') {
-      handleAddDislikedMovie(allMovies[currentIndex])
+      handleAddDislikedMovie(allMovies[currentIndex]);
     } else if (direction === 'right') {
-      handleAddLikedMovie(allMovies[currentIndex])
+      handleAddLikedMovie(allMovies[currentIndex]);
     }
-  }
-  
+  };
+
+  const getMovies = async (page = 1) => {
+    dispatch(setIsLoading(true));
+    const movies = await fetchMovies('', page);
+
+    const hasMovieOnList = (movie: TMovie, movieList: TMovie[]) =>
+      movieList.find((listMovie) => listMovie.id === movie.id);
+
+    const filteredMovies = movies
+      ? movies.filter((movie) => {
+          const hasMovie =
+            hasMovieOnList(movie, likedMoviesList) ||
+            hasMovieOnList(movie, dislikedMoviesList);
+          if (!hasMovie) return movie;
+          return undefined;
+        })
+      : [];
+
+    setCurrentIndex(filteredMovies.length - 1);
+    dispatch(setAllMovies(filteredMovies.reverse()));
+    dispatch(setIsLoading(false));
+  };
+
   useEffect(() => {
-    getMovies(actualPage)
-  }, [])
+    getMovies(actualPage);
+  }, []);
 
   return (
     <Styled.CardsCarouselContainer>
-
       <AlertBox show={showAlert}>{alertText}</AlertBox>
 
-      {isLoading ? <Spinner /> :
-        (
-          <>
-            {
-              allMovies.map((movie, index) => {
-                return (
-                  <TinderCard
-                    ref={childRefs[index]}
-                    className='swipe'
-                    key={movie.id}
-                    onSwipe={() => swiped(index)}
-                    onCardLeftScreen={() => fetchMoreMovies()}
-                  >
-                    <MovieCard movie={movie} />
-                  </TinderCard>
-                )
-              })
-            }
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {allMovies.map((movie, index) => {
+            return (
+              <TinderCard
+                // @ts-ignore
+                ref={childRefs[index]}
+                className="swipe"
+                key={movie.id}
+                onSwipe={() => swiped(index)}
+                onCardLeftScreen={() => fetchMoreMovies()}
+              >
+                <MovieCard movie={movie} />
+              </TinderCard>
+            );
+          })}
 
-            < Styled.CardsButtonsContainer >
-              <button
-                type="button"
-                title="Dislike Movie"
-                onClick={() => handleDirection('left')}>
-                <Styled.DislikeButton />
-              </button>
+          <Styled.CardsButtonsContainer>
+            <button
+              type="button"
+              aria-label="Dislike movie"
+              title="Dislike Movie"
+              onClick={() => handleDirection('left')}
+            >
+              <Styled.DislikeButton />
+            </button>
 
-              <button
-                type="button"
-                title="Like Movie"
-                onClick={() => handleDirection('right')}>
-                <Styled.LikeButton />
-              </button>
-            </Styled.CardsButtonsContainer>
-          </>
-        )
-      }
-
-    </Styled.CardsCarouselContainer >
-  )
+            <button
+              type="button"
+              aria-label="Like movie"
+              title="Like Movie"
+              onClick={() => handleDirection('right')}
+            >
+              <Styled.LikeButton />
+            </button>
+          </Styled.CardsButtonsContainer>
+        </>
+      )}
+    </Styled.CardsCarouselContainer>
+  );
 }
-

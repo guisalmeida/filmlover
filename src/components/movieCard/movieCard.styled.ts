@@ -1,14 +1,14 @@
-import styled from 'styled-components'
-import media from 'styled-media-query'
+import styled from 'styled-components';
+import media from 'styled-media-query';
 
-import { HeartCircle } from '@styled-icons/ionicons-outline/HeartCircle'
-import { HeartDislikeCircle } from '@styled-icons/ionicons-outline/HeartDislikeCircle'
-import { DeleteOutline } from '@styled-icons/typicons/DeleteOutline'
-import { Star } from '@styled-icons/evaicons-solid/Star'
+import { HeartCircle } from '@styled-icons/ionicons-outline/HeartCircle';
+import { HeartDislikeCircle } from '@styled-icons/ionicons-outline/HeartDislikeCircle';
+import { DeleteOutline } from '@styled-icons/typicons/DeleteOutline';
+import { Star } from '@styled-icons/evaicons-solid/Star';
 
 type MovieCardContainerProps = {
-  $imageUrl: string
-}
+  $imageUrl: string;
+};
 
 export const MovieCardContainer = styled.div<MovieCardContainerProps>`
   position: relative;
@@ -21,11 +21,11 @@ export const MovieCardContainer = styled.div<MovieCardContainerProps>`
   margin: 0 auto;
   border-radius: 1rem;
   background: var(--dark);
-  filter: drop-shadow(2px 2px 10px rgba(0,0,0,0.2));
+  filter: drop-shadow(2px 2px 10px rgba(0, 0, 0, 0.2));
   transition: all 0.3s ease;
-  
+
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     -webkit-filter: blur(3px);
     filter: blur(3px);
@@ -46,7 +46,7 @@ export const MovieCardContainer = styled.div<MovieCardContainerProps>`
     height: 100%;
     border-radius: 1rem;
   }
-`
+`;
 
 export const MovieCardActions = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ export const MovieCardActions = styled.div`
   width: 100%;
   padding: 1rem;
   z-index: 1;
-  
+
   ${media.lessThan('medium')`
     margin: 0;
   `}
@@ -66,13 +66,13 @@ export const MovieCardActions = styled.div`
     font-weight: bold;
     text-align: left;
     line-height: 1.2;
-    
+
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-    
+
     ${media.lessThan('medium')`
       font-size: 0.75rem;
     `}
@@ -108,9 +108,9 @@ export const MovieCardActions = styled.div`
       flex-direction: column;
     `}
   }
-`
+`;
 
-export const genreContainer = styled.div`
+export const GenreContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -122,7 +122,7 @@ export const genreContainer = styled.div`
   ${media.lessThan('medium')`
     display: none;
   `}
-`
+`;
 
 export const MovieOverview = styled.div`
   display: none;
@@ -134,7 +134,7 @@ export const MovieOverview = styled.div`
 
   padding: 1rem;
   margin: 1rem;
-  
+
   background: rgba(19, 19, 26, 0.6);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -143,12 +143,12 @@ export const MovieOverview = styled.div`
 
   user-select: none;
 
-  @media (hover: hover){
+  @media (hover: hover) {
     ${MovieCardContainer}:hover & {
       display: inline-block;
     }
   }
-  
+
   p {
     display: -webkit-box;
     overflow: hidden;
@@ -157,7 +157,7 @@ export const MovieOverview = styled.div`
     -webkit-box-orient: vertical;
     line-height: 1.2;
   }
-`
+`;
 
 export const MovieCardButtons = styled.div`
   position: absolute;
@@ -167,17 +167,17 @@ export const MovieCardButtons = styled.div`
   width: 100%;
   transition: all 0.3s ease;
 
-  @media (hover: hover){
+  @media (hover: hover) {
     ${MovieCardContainer}:hover & {
       display: flex;
     }
   }
-  
+
   ${media.lessThan('medium')`
     margin-bottom: 0.5rem;
     display: flex;
   `}
-`
+`;
 
 export const LikeButton = styled(HeartCircle)`
   border-radius: 50%;
@@ -191,13 +191,13 @@ export const LikeButton = styled(HeartCircle)`
   -webkit-backdrop-filter: blur(3px);
   color: white;
   cursor: pointer;
-  
-  @media (hover: hover){
+
+  @media (hover: hover) {
     &:hover {
       color: green;
     }
   }
-`
+`;
 
 export const DislikeButton = styled(HeartDislikeCircle)`
   border-radius: 50%;
@@ -211,19 +211,19 @@ export const DislikeButton = styled(HeartDislikeCircle)`
   -webkit-backdrop-filter: blur(3px);
   color: white;
   cursor: pointer;
-  
-  @media (hover: hover){
+
+  @media (hover: hover) {
     &:hover {
       color: red;
     }
   }
-`
+`;
 export const CloseButton = styled.button`
   position: absolute;
   top: 0.5rem;
   right: 0.25rem;
   cursor: pointer;
-`
+`;
 export const RemoveIcon = styled(DeleteOutline)`
   transition: all 0.3s ease;
   color: white;
@@ -233,20 +233,20 @@ export const RemoveIcon = styled(DeleteOutline)`
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   width: 2rem;
-  
-  @media (hover: hover){
-    &:hover{
+
+  @media (hover: hover) {
+    &:hover {
       color: var(--highlight);
     }
   }
-`
+`;
 
 export const StarIcon = styled(Star)`
-	width: 0.75rem;
-	color: black;
+  width: 0.75rem;
+  color: black;
   margin-right: 0.25rem;
 
   ${media.lessThan('medium')`
     margin-right: 0;
   `}
-`
+`;

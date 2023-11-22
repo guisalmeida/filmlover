@@ -1,11 +1,11 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-import Layout from './routes/layout/layout'
-import Home from './routes/home/home'
-import Search from './routes/search/search'
-import WallOfShame from './routes/wallofshame/wallOfShame'
-import Favorites from './routes/favorites/favorites'
+import Layout from './routes/layout/layout';
+import Home from './routes/home/home';
+import Search from './routes/search/search';
+import WallOfShame from './routes/wallofshame/wallOfShame';
+import Favorites from './routes/favorites/favorites';
 
 export default function App() {
   return (
@@ -17,5 +17,5 @@ export default function App() {
         <Route path="/search" element={<Search />} />
       </Route>
     </Routes>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import React from "react";
-import { GenreBoxContainer } from "./genreBox.styled";
+import React from 'react';
+import GenreBoxContainer from './genreBox.styled';
 
 type GenreBoxProps = {
   children: React.ReactNode;

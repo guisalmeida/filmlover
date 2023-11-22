@@ -1,8 +1,9 @@
-import User from "../../assets/user.jpeg";
-import Search from "../searchBar/searchBar";
-import Logo from "/logo.svg";
+import User from '../../assets/user.jpeg';
+import Search from '../searchBar/searchBar';
+// eslint-disable-next-line import/no-absolute-path
+import Logo from '/logo.svg?url';
 
-import { HeaderContainer, UserContainer } from "./header.styled";
+import { HeaderContainer, UserContainer } from './header.styled';
 
 export default function Header(): React.JSX.Element {
   return (
@@ -11,7 +12,7 @@ export default function Header(): React.JSX.Element {
       <Search />
       <UserContainer>
         <p>Guisalmeida</p>
-        <img src={User} className="user-photo" alt="User photo" />
+        <img src={User} className="user-photo" alt="User profile" />
       </UserContainer>
     </HeaderContainer>
   );

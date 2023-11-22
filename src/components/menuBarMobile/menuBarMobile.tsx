@@ -1,8 +1,8 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import User from '../../assets/user.jpeg'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import User from '../../assets/user.jpeg';
 
-import * as Styled from './menuBarMobile.styled'
+import * as Styled from './menuBarMobile.styled';
 
 export default function MenuBarMobile(): React.JSX.Element {
   return (
@@ -18,8 +18,8 @@ export default function MenuBarMobile(): React.JSX.Element {
           <Styled.DislikeIcon />
         </NavLink>
 
-        <img src={User} className="user" alt="User photo" />
+        <img src={User} className="user" alt="User profile" />
       </Styled.MenuBar>
     </Styled.MenuBarMobile>
-  )
+  );
 }

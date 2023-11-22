@@ -1,6 +1,7 @@
-import React from "react";
-import Logo from "/logo.svg";
-import { AlertBoxContainer } from "./alertBox.styled";
+import React from 'react';
+// eslint-disable-next-line import/no-absolute-path
+import Logo from '/logo.svg?url';
+import AlertBoxContainer from './alertBox.styled';
 
 type AlertBoxProps = {
   show: boolean;
@@ -12,11 +13,9 @@ export default function AlertBox({
   show,
 }: AlertBoxProps): React.JSX.Element {
   return (
-    <>
-      <AlertBoxContainer className={show ? "show" : "hide"}>
-        <img src={Logo} className="logo" alt="Filmlover logo" />
-        <p>{children}</p>
-      </AlertBoxContainer>
-    </>
+    <AlertBoxContainer className={show ? 'show' : 'hide'}>
+      <img src={Logo} className="logo" alt="Filmlover logo" />
+      <p>{children}</p>
+    </AlertBoxContainer>
   );
 }

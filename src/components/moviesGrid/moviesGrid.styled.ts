@@ -1,11 +1,11 @@
-import styled from 'styled-components'
-import media from 'styled-media-query'
+import styled from 'styled-components';
+import media from 'styled-media-query';
 
 export const MoviesGridContainer = styled.section`
   margin: 7rem 0px 4rem 18rem;
   padding: 0 0 0 1rem;
   width: calc(100% - 18rem);
-  
+
   ${media.lessThan('medium')`
     padding: 0 1rem;
     width: 100%;
@@ -14,7 +14,7 @@ export const MoviesGridContainer = styled.section`
     flex-direction: column;
     align-items: center;
 	`}
-  
+
   h2 {
     font-size: 2rem;
     margin: 0 0 2rem;
@@ -26,7 +26,7 @@ export const MoviesGridContainer = styled.section`
       text-align: center;
     `}
   }
-`
+`;
 
 export const MoviesGrid = styled.div`
   display: grid;
@@ -41,4 +41,4 @@ export const MoviesGrid = styled.div`
     grid-row-gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
 	`}
-`
+`;
