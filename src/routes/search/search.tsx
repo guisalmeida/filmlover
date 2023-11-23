@@ -5,7 +5,9 @@ import { MoviesContext } from '../../context/moviesContext';
 
 export default function Search(): React.JSX.Element {
   const { state } = useLocation();
-  const { searchResult } = useContext(MoviesContext);
+  const {
+    state: { searchResult },
+  } = useContext(MoviesContext);
 
   return (
     <MoviesGrid movies={searchResult} title={`Results for ${state.title}`} />

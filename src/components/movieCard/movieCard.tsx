@@ -1,31 +1,29 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { TMovie, MoviesContext } from '../../context/moviesContext';
+import { MovieType, MoviesContext } from '../../context/moviesContext';
 
 import { MOVIE_GENRES, IMAGE_URL } from '../../utils/api';
 import GenreBox from '../genreBox/genreBox';
 
 import * as Styled from './movieCard.styled';
 
-type TMovieCardProps = {
-  movie: TMovie;
+type MovieTypeCardProps = {
+  movie: MovieType;
 };
 
 export default function MovieCard({
   movie,
-}: TMovieCardProps): React.JSX.Element {
+}: MovieTypeCardProps): React.JSX.Element {
   const location = useLocation();
   const showButtons = location.pathname === '/search';
   const showCloseButton =
     location.pathname === '/favorites' || location.pathname === '/wallofshame';
   const {
-    allMovies,
-    likedMoviesList,
-    dislikedMoviesList,
+    state: { allMovies, likedMoviesList, dislikedMoviesList },
     setAllMovies,
-    setDislikedMoviesList,
     setLikedMoviesList,
+    setDislikedMoviesList,
     addLikedMovie,
     addDislikedMovie,
   } = useContext(MoviesContext);
@@ -40,13 +38,15 @@ export default function MovieCard({
     return '';
   };
 
-  const removeMovieFromList = (movieToRemove: TMovie, movieList: TMovie[]) =>
-    movieList.filter((listMovie) => listMovie.id !== movieToRemove.id);
+  const removeMovieFromList = (
+    movieToRemove: MovieType,
+    movieList: MovieType[]
+  ) => movieList.filter((listMovie) => listMovie.id !== movieToRemove.id);
 
-  const isOnList = (movieOnList: TMovie, movieList: TMovie[]) =>
+  const isOnList = (movieOnList: MovieType, movieList: MovieType[]) =>
     Boolean(movieList.find((listMovie) => listMovie.id === movieOnList.id));
 
-  const handleAddLikedMovie = (newLikedMovie: TMovie) => {
+  const handleAddLikedMovie = (newLikedMovie: MovieType) => {
     const isLiked = isOnList(newLikedMovie, likedMoviesList);
 
     if (isLiked) {
@@ -59,7 +59,7 @@ export default function MovieCard({
     return console.log('Movie liked!');
   };
 
-  const handleAddDislikedMovie = (NewDislikedMovie: TMovie) => {
+  const handleAddDislikedMovie = (NewDislikedMovie: MovieType) => {
     const isLiked = isOnList(NewDislikedMovie, dislikedMoviesList);
 
     if (isLiked) {
@@ -72,7 +72,7 @@ export default function MovieCard({
     return console.log('Movie disliked!');
   };
 
-  const removeMovieFromDislikedList = (dislikedMovie: TMovie) => {
+  const removeMovieFromDislikedList = (dislikedMovie: MovieType) => {
     const isDisliked = isOnList(dislikedMovie, dislikedMoviesList);
 
     if (!isDisliked) {
@@ -88,10 +88,10 @@ export default function MovieCard({
     return console.log('Removed!');
   };
 
-  const removeMovieFromLikedList = (likedMovie: TMovie) => {
-    const isDisliked = isOnList(likedMovie, likedMoviesList);
+  const removeMovieFromLikedList = (likedMovie: MovieType) => {
+    const isLiked = isOnList(likedMovie, likedMoviesList);
 
-    if (!isDisliked) {
+    if (!isLiked) {
       return console.log('It is not on the liked list!');
     }
 

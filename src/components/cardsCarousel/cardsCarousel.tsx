@@ -2,7 +2,7 @@ import React, { useState, useMemo, useRef, useEffect, useContext } from 'react';
 import TinderCard from 'react-tinder-card';
 
 import { fetchMovies } from '../../utils/api';
-import { TMovie, MoviesContext } from '../../context/moviesContext';
+import { MovieType, MoviesContext } from '../../context/moviesContext';
 
 import MovieCard from '../movieCard/movieCard';
 import Spinner from '../spinner/spinner';
@@ -12,11 +12,13 @@ import * as Styled from './cardsCarousel.styled';
 
 export default function CardsCarousel() {
   const {
-    likedMoviesList,
-    dislikedMoviesList,
-    allMovies,
-    actualPage,
-    isLoading,
+    state: {
+      likedMoviesList,
+      dislikedMoviesList,
+      allMovies,
+      actualPage,
+      isLoading,
+    },
     setAllMovies,
     setIsLoading,
     addLikedMovie,
@@ -45,13 +47,15 @@ export default function CardsCarousel() {
     }
   };
 
-  const removeMovieFromList = (movieToRemove: TMovie, movieList: TMovie[]) =>
-    movieList.filter((movie) => movie.id !== movieToRemove.id);
+  const removeMovieFromList = (
+    movieToRemove: MovieType,
+    movieList: MovieType[]
+  ) => movieList.filter((movie) => movie.id !== movieToRemove.id);
 
-  const isOnList = (movie: TMovie, movieList: TMovie[]) =>
+  const isOnList = (movie: MovieType, movieList: MovieType[]) =>
     Boolean(movieList.find((listMovie) => listMovie.id === movie.id));
 
-  const handleAddLikedMovie = (newLikedMovie: TMovie) => {
+  const handleAddLikedMovie = (newLikedMovie: MovieType) => {
     setShowAlert(true);
     setAlertText('Movie liked!');
     const isLiked = isOnList(newLikedMovie, likedMoviesList);
@@ -71,7 +75,7 @@ export default function CardsCarousel() {
     return console.log('Movie liked!');
   };
 
-  const handleAddDislikedMovie = (NewDislikedMovie: TMovie) => {
+  const handleAddDislikedMovie = (NewDislikedMovie: MovieType) => {
     setShowAlert(true);
     setAlertText('Movie disliked!');
     const isLiked = isOnList(NewDislikedMovie, dislikedMoviesList);
@@ -122,7 +126,7 @@ export default function CardsCarousel() {
     setIsLoading(true);
     const movies = await fetchMovies('', page);
 
-    const hasMovieOnList = (movie: TMovie, movieList: TMovie[]) =>
+    const hasMovieOnList = (movie: MovieType, movieList: MovieType[]) =>
       movieList.find((listMovie) => listMovie.id === movie.id);
 
     const filteredMovies = movies

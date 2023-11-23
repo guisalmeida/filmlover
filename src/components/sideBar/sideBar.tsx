@@ -1,6 +1,6 @@
 import { MouseEvent, useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { MoviesContext, TMovie } from '../../context/moviesContext';
+import { MoviesContext, MovieType } from '../../context/moviesContext';
 
 import { MOVIE_GENRES, fetchMovies } from '../../utils/api';
 import GenreBox from '../genreBox/genreBox';
@@ -11,7 +11,7 @@ import * as Styled from './sideBar.styled';
 export default function SideBar(): React.JSX.Element {
   const navigate = useNavigate();
   const { setSearchResult } = useContext(MoviesContext);
-  const searchMovies = async (e: MouseEvent, movie: TMovie) => {
+  const searchMovies = async (e: MouseEvent, movie: MovieType) => {
     e.preventDefault();
 
     const searchedMovies = await fetchMovies(undefined, undefined, movie.id);
@@ -52,7 +52,7 @@ export default function SideBar(): React.JSX.Element {
             className="genre-button"
             type="button"
             title={`Browse by ${movie.name}`}
-            onClick={(e) => searchMovies(e, movie as TMovie)}
+            onClick={(e) => searchMovies(e, movie as MovieType)}
           >
             <GenreBox>{movie.name}</GenreBox>
           </button>

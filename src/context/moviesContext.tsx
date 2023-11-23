@@ -1,11 +1,6 @@
-import React, {
-  SetStateAction,
-  createContext,
-  useState,
-  Dispatch,
-} from 'react';
+import React, { createContext, useCallback, useReducer } from 'react';
 
-export type TMovie = {
+export type MovieType = {
   id: number;
   name: string;
   title: string;
@@ -15,30 +10,174 @@ export type TMovie = {
   genre_ids: number[];
 };
 
-export type TMoviesInitialState = {
-  allMovies: TMovie[];
-  likedMoviesList: TMovie[];
-  dislikedMoviesList: TMovie[];
-  searchResult: TMovie[];
-  actualPage: number;
-  isLoading: boolean;
-  setAllMovies: Dispatch<SetStateAction<TMovie[]>>;
-  setLikedMoviesList: Dispatch<SetStateAction<TMovie[]>>;
-  setDislikedMoviesList: Dispatch<SetStateAction<TMovie[]>>;
-  setSearchResult: Dispatch<SetStateAction<TMovie[]>>;
-  setActualPage: Dispatch<SetStateAction<number>>;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
-  addLikedMovie: (movie: TMovie) => void;
-  addDislikedMovie: (movie: TMovie) => void;
+export type InitStateType = {
+  readonly allMovies: MovieType[];
+  readonly likedMoviesList: MovieType[];
+  readonly dislikedMoviesList: MovieType[];
+  readonly searchResult: MovieType[];
+  readonly actualPage: number;
+  readonly isLoading: boolean;
 };
 
-export const MoviesContext = createContext<TMoviesInitialState>({
+const initState: InitStateType = {
   allMovies: [],
   likedMoviesList: [],
   dislikedMoviesList: [],
   searchResult: [],
   actualPage: 1,
   isLoading: true,
+};
+
+const enum MovieActionType {
+  SET_ALL_MOVIES,
+  SET_LIKED_MOVIES,
+  SET_DISLIKED_MOVIES,
+  SET_SEARCH_MOVIES,
+  SET_ACTUAL_PAGE,
+  SET_IS_LOADING,
+  ADD_LIKED_MOVIE,
+  ADD_DISLIKED_MOVIE,
+}
+
+type MoviesReducerActionType = {
+  type: MovieActionType;
+  payload?: MovieType | MovieType[] | number | boolean;
+};
+
+const moviesReducer = (
+  state: InitStateType,
+  action: MoviesReducerActionType
+): InitStateType => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case MovieActionType.SET_ALL_MOVIES:
+      return { ...state, allMovies: payload as MovieType[] };
+
+    case MovieActionType.SET_LIKED_MOVIES:
+      return { ...state, likedMoviesList: payload as MovieType[] };
+
+    case MovieActionType.SET_DISLIKED_MOVIES:
+      return { ...state, dislikedMoviesList: payload as MovieType[] };
+
+    case MovieActionType.SET_SEARCH_MOVIES:
+      return { ...state, searchResult: payload as MovieType[] };
+
+    case MovieActionType.SET_ACTUAL_PAGE:
+      return { ...state, actualPage: payload as number };
+
+    case MovieActionType.SET_IS_LOADING:
+      return { ...state, isLoading: payload as boolean };
+
+    case MovieActionType.ADD_LIKED_MOVIE:
+      return {
+        ...state,
+        likedMoviesList: [...state.likedMoviesList, payload as MovieType],
+      };
+
+    case MovieActionType.ADD_DISLIKED_MOVIE:
+      return {
+        ...state,
+        dislikedMoviesList: [...state.dislikedMoviesList, payload as MovieType],
+      };
+
+    default:
+      throw new Error('Action type invalid!');
+  }
+};
+
+const useMoviesContext = (initialState: InitStateType) => {
+  const [state, dispatch] = useReducer(moviesReducer, initialState);
+
+  const setAllMovies = useCallback(
+    (payload: MovieType[]) =>
+      dispatch({
+        type: MovieActionType.SET_ALL_MOVIES,
+        payload,
+      }),
+    []
+  );
+
+  const setLikedMoviesList = useCallback(
+    (payload: MovieType[]) =>
+      dispatch({
+        type: MovieActionType.SET_LIKED_MOVIES,
+        payload,
+      }),
+    []
+  );
+
+  const setDislikedMoviesList = useCallback(
+    (payload: MovieType[]) =>
+      dispatch({
+        type: MovieActionType.SET_DISLIKED_MOVIES,
+        payload,
+      }),
+    []
+  );
+
+  const setSearchResult = useCallback(
+    (payload: MovieType[]) =>
+      dispatch({
+        type: MovieActionType.SET_SEARCH_MOVIES,
+        payload,
+      }),
+    []
+  );
+
+  const setActualPage = useCallback(
+    (payload: number) =>
+      dispatch({
+        type: MovieActionType.SET_ACTUAL_PAGE,
+        payload,
+      }),
+    []
+  );
+
+  const setIsLoading = useCallback(
+    (payload: boolean) =>
+      dispatch({
+        type: MovieActionType.SET_IS_LOADING,
+        payload,
+      }),
+    []
+  );
+
+  const addLikedMovie = useCallback(
+    (payload: MovieType) =>
+      dispatch({
+        type: MovieActionType.ADD_LIKED_MOVIE,
+        payload,
+      }),
+    []
+  );
+
+  const addDislikedMovie = useCallback(
+    (payload: MovieType) =>
+      dispatch({
+        type: MovieActionType.ADD_DISLIKED_MOVIE,
+        payload,
+      }),
+    []
+  );
+
+  return {
+    state,
+    setAllMovies,
+    setLikedMoviesList,
+    setDislikedMoviesList,
+    setSearchResult,
+    setActualPage,
+    setIsLoading,
+    addLikedMovie,
+    addDislikedMovie,
+  };
+};
+
+type UseMovieContextType = ReturnType<typeof useMoviesContext>;
+
+const initContextState: UseMovieContextType = {
+  state: initState,
   setAllMovies: () => {},
   setLikedMoviesList: () => {},
   setDislikedMoviesList: () => {},
@@ -47,45 +186,17 @@ export const MoviesContext = createContext<TMoviesInitialState>({
   setIsLoading: () => {},
   addLikedMovie: () => {},
   addDislikedMovie: () => {},
-} as TMoviesInitialState);
+};
 
-type TMoviesProviderProps = {
+export const MoviesContext =
+  createContext<UseMovieContextType>(initContextState);
+
+type MovieProviderPropType = {
   children: React.ReactNode;
 };
 
-export default function MoviesProvider({ children }: TMoviesProviderProps) {
-  const [allMovies, setAllMovies] = useState<TMovie[]>([]);
-  const [likedMoviesList, setLikedMoviesList] = useState<TMovie[]>([]);
-  const [dislikedMoviesList, setDislikedMoviesList] = useState<TMovie[]>([]);
-  const [searchResult, setSearchResult] = useState<TMovie[]>([]);
-  const [actualPage, setActualPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const addLikedMovie = (movie: TMovie) => {
-    setLikedMoviesList((prevList) => [...prevList, movie]);
-  };
-
-  const addDislikedMovie = (movie: TMovie) => {
-    setDislikedMoviesList((prevList) => [...prevList, movie]);
-  };
-
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const value = {
-    allMovies,
-    setAllMovies,
-    likedMoviesList,
-    setLikedMoviesList,
-    dislikedMoviesList,
-    setDislikedMoviesList,
-    searchResult,
-    setSearchResult,
-    actualPage,
-    setActualPage,
-    isLoading,
-    setIsLoading,
-    addLikedMovie,
-    addDislikedMovie,
-  };
+export default function MoviesProvider({ children }: MovieProviderPropType) {
+  const value = useMoviesContext(initState);
 
   return (
     <MoviesContext.Provider value={value}>{children}</MoviesContext.Provider>
