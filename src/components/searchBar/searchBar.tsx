@@ -1,22 +1,20 @@
-import { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { FormEvent, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { setSearchMovies } from '../../redux/reducers/moviesReducer';
 import { fetchMovies } from '../../utils/api';
+import { MoviesContext } from '../../context/moviesContext';
 
 import * as Styled from './searchBar.styled.js';
 
 export default function SearchBar() {
-  const [searchKey, setSearchKey] = useState('');
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchKey, setSearchKey] = useState('');
+  const { setSearchResult } = useContext(MoviesContext);
 
   const searchMovies = async (e: FormEvent) => {
     e.preventDefault();
     const searchedMovies = await fetchMovies(searchKey);
     if (searchedMovies) {
-      dispatch(setSearchMovies(searchedMovies));
+      setSearchResult(searchedMovies);
       setSearchKey('');
       navigate('/search', { state: { title: searchKey } });
     }

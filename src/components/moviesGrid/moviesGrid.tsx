@@ -1,6 +1,7 @@
-import { TMovie } from '../../redux/reducers/moviesReducer';
+import { TMovie } from '../../context/moviesContext';
 import MovieCard from '../movieCard/movieCard';
 import AlertBox from '../alertBox/alertBox';
+
 import * as Styled from './moviesGrid.styled';
 
 type MoviesGridProps = {

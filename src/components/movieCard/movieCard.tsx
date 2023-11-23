@@ -1,19 +1,7 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import {
-  addLikedMovie,
-  addDislikedMovie,
-  setAllMovies,
-  setLikedMovies,
-  setDislikedMovies,
-  TMovie,
-} from '../../redux/reducers/moviesReducer';
-import {
-  selectAllMovies,
-  selectDislikedMovies,
-  selectLikedMovies,
-} from '../../redux/selectors/moviesSelector';
+
+import { TMovie, MoviesContext } from '../../context/moviesContext';
 
 import { MOVIE_GENRES, IMAGE_URL } from '../../utils/api';
 import GenreBox from '../genreBox/genreBox';
@@ -27,16 +15,20 @@ type TMovieCardProps = {
 export default function MovieCard({
   movie,
 }: TMovieCardProps): React.JSX.Element {
-  const dispatch = useDispatch();
-
-  const allMovies = useSelector(selectAllMovies);
-  const likedMoviesList = useSelector(selectLikedMovies);
-  const dislikedMoviesList = useSelector(selectDislikedMovies);
-
   const location = useLocation();
   const showButtons = location.pathname === '/search';
   const showCloseButton =
     location.pathname === '/favorites' || location.pathname === '/wallofshame';
+  const {
+    allMovies,
+    likedMoviesList,
+    dislikedMoviesList,
+    setAllMovies,
+    setDislikedMoviesList,
+    setLikedMoviesList,
+    addLikedMovie,
+    addDislikedMovie,
+  } = useContext(MoviesContext);
 
   const whichLocation = () => {
     if (location.pathname === '/favorites') {
@@ -62,8 +54,8 @@ export default function MovieCard({
     }
 
     const filteredMovies = removeMovieFromList(newLikedMovie, allMovies);
-    dispatch(setAllMovies(filteredMovies));
-    dispatch(addLikedMovie(newLikedMovie));
+    setAllMovies(filteredMovies);
+    addLikedMovie(newLikedMovie);
     return console.log('Movie liked!');
   };
 
@@ -75,8 +67,8 @@ export default function MovieCard({
     }
 
     const filteredMovies = removeMovieFromList(NewDislikedMovie, allMovies);
-    dispatch(setAllMovies(filteredMovies));
-    dispatch(addDislikedMovie(NewDislikedMovie));
+    setAllMovies(filteredMovies);
+    addDislikedMovie(NewDislikedMovie);
     return console.log('Movie disliked!');
   };
 
@@ -91,8 +83,8 @@ export default function MovieCard({
       dislikedMovie,
       dislikedMoviesList
     );
-    dispatch(setDislikedMovies(updatedDislikedList));
-    dispatch(setAllMovies([...allMovies, dislikedMovie]));
+    setDislikedMoviesList(updatedDislikedList);
+    setAllMovies([...allMovies, dislikedMovie]);
     return console.log('Removed!');
   };
 
@@ -104,8 +96,8 @@ export default function MovieCard({
     }
 
     const updatedLikedList = removeMovieFromList(likedMovie, likedMoviesList);
-    dispatch(setLikedMovies(updatedLikedList));
-    dispatch(setAllMovies([...allMovies, likedMovie]));
+    setLikedMoviesList(updatedLikedList);
+    setAllMovies([...allMovies, likedMovie]);
     return console.log('Removed!');
   };
 
