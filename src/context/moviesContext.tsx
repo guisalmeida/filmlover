@@ -1,4 +1,9 @@
-import React, { createContext, useCallback, useReducer } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useReducer,
+} from 'react';
 
 export type MovieType = {
   id: number;
@@ -195,8 +200,17 @@ type MovieProviderPropType = {
   children: React.ReactNode;
 };
 
+const getInitContextState = (): InitStateType => {
+  const state = window.sessionStorage.getItem('state');
+  return state ? JSON.parse(state) : initState;
+};
+
 export default function MoviesProvider({ children }: MovieProviderPropType) {
-  const value = useMoviesContext(initState);
+  const value = useMoviesContext(getInitContextState());
+
+  useEffect(() => {
+    window.sessionStorage.setItem('state', JSON.stringify(value.state));
+  }, [value.state]);
 
   return (
     <MoviesContext.Provider value={value}>{children}</MoviesContext.Provider>
