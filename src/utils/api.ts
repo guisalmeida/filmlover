@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {MovieType } from '../context/moviesContext';
+import { MovieType } from '../context/moviesContext';
 
 export const API_URL = 'https://api.themoviedb.org/3';
 export const IMAGE_URL = 'http://image.tmdb.org/t/p/w342';
@@ -87,7 +87,7 @@ export const fetchMovies = async (
   searchKey = '',
   page = 1,
   genre: number | undefined = undefined
-): Promise<TMovie[] | undefined> => {
+): Promise<MovieType[] | undefined> => {
   const type = searchKey ? 'search' : 'discover';
 
   const params = {
