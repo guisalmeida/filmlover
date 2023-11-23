@@ -1,24 +1,8 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useMemo, useRef, useEffect, useContext } from 'react';
 import TinderCard from 'react-tinder-card';
+
 import { fetchMovies } from '../../utils/api';
-
-import {
-  addLikedMovie,
-  addDislikedMovie,
-  setAllMovies,
-  setActualPage,
-  setIsLoading,
-  TMovie,
-} from '../../redux/reducers/moviesReducer';
-
-import {
-  selectActualPage,
-  selectAllMovies,
-  selectDislikedMovies,
-  selectIsLoading,
-  selectLikedMovies,
-} from '../../redux/selectors/moviesSelector';
+import { TMovie, MoviesContext } from '../../context/moviesContext';
 
 import MovieCard from '../movieCard/movieCard';
 import Spinner from '../spinner/spinner';
@@ -27,17 +11,22 @@ import AlertBox from '../alertBox/alertBox';
 import * as Styled from './cardsCarousel.styled';
 
 export default function CardsCarousel() {
-  const likedMoviesList = useSelector(selectLikedMovies);
-  const dislikedMoviesList = useSelector(selectDislikedMovies);
-  const allMovies = useSelector(selectAllMovies);
-  const actualPage = useSelector(selectActualPage);
-  const isLoading = useSelector(selectIsLoading);
+  const {
+    likedMoviesList,
+    dislikedMoviesList,
+    allMovies,
+    actualPage,
+    isLoading,
+    setAllMovies,
+    setIsLoading,
+    addLikedMovie,
+    addDislikedMovie,
+    setActualPage,
+  } = useContext(MoviesContext);
 
   const [currentIndex, setCurrentIndex] = useState(allMovies.length - 1);
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
-
-  const dispatch = useDispatch();
 
   const currentIndexRef = useRef(currentIndex);
   const canSwipe = currentIndex >= 0;
@@ -74,8 +63,8 @@ export default function CardsCarousel() {
     swipe('right');
     setTimeout(() => {
       const filteredMovies = removeMovieFromList(newLikedMovie, allMovies);
-      dispatch(setAllMovies(filteredMovies));
-      dispatch(addLikedMovie(newLikedMovie));
+      setAllMovies(filteredMovies);
+      addLikedMovie(newLikedMovie);
       setShowAlert(false);
     }, 1000);
 
@@ -94,8 +83,8 @@ export default function CardsCarousel() {
     swipe('left');
     setTimeout(() => {
       const filteredMovies = removeMovieFromList(NewDislikedMovie, allMovies);
-      dispatch(setAllMovies(filteredMovies));
-      dispatch(addDislikedMovie(NewDislikedMovie));
+      setAllMovies(filteredMovies);
+      addDislikedMovie(NewDislikedMovie);
       setShowAlert(false);
     }, 1000);
 
@@ -106,8 +95,8 @@ export default function CardsCarousel() {
     if (allMovies.length <= 2) {
       const newMovies = await fetchMovies('', actualPage + 1);
       if (newMovies) {
-        dispatch(setAllMovies([...newMovies, ...allMovies]));
-        dispatch(setActualPage(actualPage + 1));
+        setAllMovies([...newMovies, ...allMovies]);
+        setActualPage(actualPage + 1);
       }
     }
   };
@@ -130,7 +119,7 @@ export default function CardsCarousel() {
   };
 
   const getMovies = async (page = 1) => {
-    dispatch(setIsLoading(true));
+    setIsLoading(true);
     const movies = await fetchMovies('', page);
 
     const hasMovieOnList = (movie: TMovie, movieList: TMovie[]) =>
@@ -147,8 +136,8 @@ export default function CardsCarousel() {
       : [];
 
     setCurrentIndex(filteredMovies.length - 1);
-    dispatch(setAllMovies(filteredMovies.reverse()));
-    dispatch(setIsLoading(false));
+    setAllMovies(filteredMovies.reverse());
+    setIsLoading(false);
   };
 
   useEffect(() => {

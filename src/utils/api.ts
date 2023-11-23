@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TMovie } from '../redux/reducers/moviesReducer';
+import { TMovie } from '../context/moviesContext';
 
 export const API_URL = 'https://api.themoviedb.org/3';
 export const IMAGE_URL = 'http://image.tmdb.org/t/p/w342';

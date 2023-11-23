@@ -1,16 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { selectSearchResultMovies } from '../../redux/selectors/moviesSelector';
 import MoviesGrid from '../../components/moviesGrid/moviesGrid';
+import { MoviesContext } from '../../context/moviesContext';
 
 export default function Search(): React.JSX.Element {
-  const searchResultMovies = useSelector(selectSearchResultMovies);
   const { state } = useLocation();
+  const { searchResult } = useContext(MoviesContext);
 
   return (
-    <MoviesGrid
-      movies={searchResultMovies}
-      title={`Results for ${state.title}`}
-    />
+    <MoviesGrid movies={searchResult} title={`Results for ${state.title}`} />
   );
 }

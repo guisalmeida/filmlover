@@ -1,7 +1,7 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { TMovie, setSearchMovies } from '../../redux/reducers/moviesReducer';
+import { MoviesContext, TMovie } from '../../context/moviesContext';
+
 import { MOVIE_GENRES, fetchMovies } from '../../utils/api';
 import GenreBox from '../genreBox/genreBox';
 
@@ -9,14 +9,15 @@ import Logo from '../../assets/logo_h.svg';
 import * as Styled from './sideBar.styled';
 
 export default function SideBar(): React.JSX.Element {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { setSearchResult } = useContext(MoviesContext);
   const searchMovies = async (e: MouseEvent, movie: TMovie) => {
     e.preventDefault();
+
     const searchedMovies = await fetchMovies(undefined, undefined, movie.id);
+
     if (searchedMovies) {
-      dispatch(setSearchMovies(searchedMovies));
+      setSearchResult(searchedMovies);
       navigate('/search', { state: { title: movie.name } });
     }
   };

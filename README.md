@@ -11,7 +11,7 @@ Match with your favorite movies and shame the other ones.
 
 ### Made with:
 
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 
 <img alt="Logo" src="./src/assets/tmdb.svg" width="60" />
 
@@ -26,6 +26,7 @@ Match with your favorite movies and shame the other ones.
 
 - [x] Implement [redux toolkit](https://redux-toolkit.js.org/)
 - [x] Implement Typescript
+- [x] Migrate Context API
 - [ ] Implement skeleton to improve animations
 - [ ] Implement [radix-ui](https://www.radix-ui.com/primitives/docs/overview/introduction) to improve and test A11Y
 - [ ] Implement [blurhash](https://blurha.sh/) to improve lazy loading

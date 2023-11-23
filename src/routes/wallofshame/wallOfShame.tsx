@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
-import { selectDislikedMovies } from '../../redux/selectors/moviesSelector';
+import { useContext } from 'react';
 import MoviesGrid from '../../components/moviesGrid/moviesGrid';
+import { MoviesContext } from '../../context/moviesContext';
 
 export default function WallOfShame(): React.JSX.Element {
-  const dislikedMovies = useSelector(selectDislikedMovies);
+  const { dislikedMoviesList } = useContext(MoviesContext);
 
-  return <MoviesGrid movies={dislikedMovies} title="Wall of Shame" />;
+  return <MoviesGrid movies={dislikedMoviesList} title="Wall of Shame" />;
 }
