@@ -1,12 +1,12 @@
-import React, { useState, useMemo, useRef, useEffect, useContext } from 'react';
+import React, { useState, useMemo, useRef, useContext, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
+import { toast } from 'react-toastify';
 
 import { fetchMovies } from '../../utils/api';
 import { MovieType, MoviesContext } from '../../context/moviesContext';
 
 import MovieCard from '../movieCard/movieCard';
 import Spinner from '../spinner/spinner';
-import AlertBox from '../alertBox/alertBox';
 
 import * as Styled from './cardsCarousel.styled';
 
@@ -27,8 +27,6 @@ export default function CardsCarousel() {
   } = useContext(MoviesContext);
 
   const [currentIndex, setCurrentIndex] = useState(allMovies.length - 1);
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertText, setAlertText] = useState('');
 
   const currentIndexRef = useRef(currentIndex);
   const canSwipe = currentIndex >= 0;
@@ -56,12 +54,10 @@ export default function CardsCarousel() {
     Boolean(movieList.find((listMovie) => listMovie.id === movie.id));
 
   const handleAddLikedMovie = (newLikedMovie: MovieType) => {
-    setShowAlert(true);
-    setAlertText('Movie liked!');
     const isLiked = isOnList(newLikedMovie, likedMoviesList);
 
     if (isLiked) {
-      return console.log('It is already on the liked list!');
+      return;
     }
 
     swipe('right');
@@ -69,19 +65,16 @@ export default function CardsCarousel() {
       const filteredMovies = removeMovieFromList(newLikedMovie, allMovies);
       setAllMovies(filteredMovies);
       addLikedMovie(newLikedMovie);
-      setShowAlert(false);
     }, 1000);
 
-    return console.log('Movie liked!');
+    return toast('Movie liked!', { icon: '❤️' });
   };
 
   const handleAddDislikedMovie = (NewDislikedMovie: MovieType) => {
-    setShowAlert(true);
-    setAlertText('Movie disliked!');
     const isLiked = isOnList(NewDislikedMovie, dislikedMoviesList);
 
     if (isLiked) {
-      return console.log('It is already on the disliked list!');
+      return;
     }
 
     swipe('left');
@@ -89,13 +82,12 @@ export default function CardsCarousel() {
       const filteredMovies = removeMovieFromList(NewDislikedMovie, allMovies);
       setAllMovies(filteredMovies);
       addDislikedMovie(NewDislikedMovie);
-      setShowAlert(false);
     }, 1000);
 
-    return console.log('Movie disliked!');
+    return toast('Movie disliked!', { icon: '👎' });
   };
 
-  const fetchMoreMovies = async () => {
+  const fetchMoreMovies = async (): Promise<MovieType[] | void> => {
     if (allMovies.length <= 2) {
       const newMovies = await fetchMovies('', actualPage + 1);
       if (newMovies) {
@@ -150,8 +142,6 @@ export default function CardsCarousel() {
 
   return (
     <Styled.CardsCarouselContainer>
-      <AlertBox show={showAlert}>{alertText}</AlertBox>
-
       {isLoading ? (
         <Spinner />
       ) : (

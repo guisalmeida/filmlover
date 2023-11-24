@@ -24,6 +24,7 @@ export type InitStateType = {
   readonly isLoading: boolean;
 };
 
+// Reducers only can store readable values
 const initState: InitStateType = {
   allMovies: [],
   likedMoviesList: [],
@@ -87,7 +88,7 @@ const moviesReducer = (
       };
 
     default:
-      throw new Error('Action type invalid!');
+      throw new Error(`Action type invalid: ${type}`);
   }
 };
 
@@ -206,7 +207,8 @@ const getInitContextState = (): InitStateType => {
 };
 
 export default function MoviesProvider({ children }: MovieProviderPropType) {
-  const value = useMoviesContext(getInitContextState());
+  const contextState = getInitContextState();
+  const value = useMoviesContext(contextState);
 
   useEffect(() => {
     window.sessionStorage.setItem('state', JSON.stringify(value.state));

@@ -104,6 +104,6 @@ export const fetchMovies = async (
     const { data } = await axios.get(`${API_URL}/${type}/movie`, { params });
     return data.results;
   } catch (error) {
-    console.log('Error creating the user!', (error as Error).message);
+    console.log(`Error fetching movies: ${(error as Error).message}`);
   }
 };

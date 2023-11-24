@@ -11,6 +11,7 @@ import * as Styled from './sideBar.styled';
 export default function SideBar(): React.JSX.Element {
   const navigate = useNavigate();
   const { setSearchResult } = useContext(MoviesContext);
+
   const searchMovies = async (e: MouseEvent, movie: MovieType) => {
     e.preventDefault();
 

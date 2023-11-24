@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 
 import { MovieType, MoviesContext } from '../../context/moviesContext';
@@ -50,33 +51,33 @@ export default function MovieCard({
     const isLiked = isOnList(newLikedMovie, likedMoviesList);
 
     if (isLiked) {
-      return console.log('It is already on the liked list!');
+      return;
     }
 
     const filteredMovies = removeMovieFromList(newLikedMovie, allMovies);
     setAllMovies(filteredMovies);
     addLikedMovie(newLikedMovie);
-    return console.log('Movie liked!');
+    return toast('Movie liked!', { icon: '❤️' });
   };
 
   const handleAddDislikedMovie = (NewDislikedMovie: MovieType) => {
     const isLiked = isOnList(NewDislikedMovie, dislikedMoviesList);
 
     if (isLiked) {
-      return console.log('It is already on the disliked list!');
+      return;
     }
 
     const filteredMovies = removeMovieFromList(NewDislikedMovie, allMovies);
     setAllMovies(filteredMovies);
     addDislikedMovie(NewDislikedMovie);
-    return console.log('Movie disliked!');
+    return toast('Movie disliked!', { icon: '👎' });
   };
 
   const removeMovieFromDislikedList = (dislikedMovie: MovieType) => {
     const isDisliked = isOnList(dislikedMovie, dislikedMoviesList);
 
     if (!isDisliked) {
-      return console.log('It is not on the disliked list!');
+      return;
     }
 
     const updatedDislikedList = removeMovieFromList(
@@ -85,20 +86,20 @@ export default function MovieCard({
     );
     setDislikedMoviesList(updatedDislikedList);
     setAllMovies([...allMovies, dislikedMovie]);
-    return console.log('Removed!');
+    return toast('Removed from Wall of shame!', { icon: '❌' });
   };
 
   const removeMovieFromLikedList = (likedMovie: MovieType) => {
     const isLiked = isOnList(likedMovie, likedMoviesList);
 
     if (!isLiked) {
-      return console.log('It is not on the liked list!');
+      return;
     }
 
     const updatedLikedList = removeMovieFromList(likedMovie, likedMoviesList);
     setLikedMoviesList(updatedLikedList);
     setAllMovies([...allMovies, likedMovie]);
-    return console.log('Removed!');
+    return toast('Removed from favorites!', { icon: '❌' });
   };
 
   const imageUrl = movie.poster_path

@@ -166,6 +166,7 @@ export const MovieCardButtons = styled.div`
   justify-content: space-between;
   width: 100%;
   transition: all 0.3s ease;
+  z-index: 9;
 
   @media (hover: hover) {
     ${MovieCardContainer}:hover & {
