@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import User from '../../assets/user.jpeg';
 
 import * as Styled from './menuBarMobile.styled';
@@ -18,7 +18,9 @@ export default function MenuBarMobile(): React.JSX.Element {
           <Styled.DislikeIcon />
         </NavLink>
 
-        <img src={User} className="user" alt="User profile" />
+        <Link to="https://www.guisalmeida.com/" target="_blank">
+          <img src={User} className="user" alt="User profile" />
+        </Link>
       </Styled.MenuBar>
     </Styled.MenuBarMobile>
   );

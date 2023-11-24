@@ -6,6 +6,7 @@ import { MOVIE_GENRES, fetchMovies } from '../../utils/api';
 import GenreBox from '../genreBox/genreBox';
 
 import Logo from '../../assets/logo_h.svg';
+import Tmdb from '../../assets/tmdb.svg';
 import * as Styled from './sideBar.styled';
 
 export default function SideBar(): React.JSX.Element {
@@ -31,15 +32,18 @@ export default function SideBar(): React.JSX.Element {
 
       <Styled.MenuContainer>
         <NavLink to="/">
-          <Styled.HomeIcon />
+          {/* <Styled.HomeIcon /> */}
+          <p>🍿</p>
           <p>Home</p>
         </NavLink>
         <NavLink to="/favorites">
-          <Styled.StarIcon />
+          {/* <Styled.StarIcon /> */}
+          <p>⭐</p>
           <p>Favorites</p>
         </NavLink>
         <NavLink to="/wallofshame">
-          <Styled.DislikeIcon />
+          {/* <Styled.DislikeIcon /> */}
+          <p>💔</p>
           <p>Wall of shame</p>
         </NavLink>
       </Styled.MenuContainer>
@@ -59,6 +63,11 @@ export default function SideBar(): React.JSX.Element {
           </button>
         ))}
       </Styled.GenreContainer>
+
+      <h3 className="genre-title">Powered by</h3>
+      <Link to="https://www.themoviedb.org/" target="_blank">
+        <img src={Tmdb} className="logo" alt="TMDB logo" />
+      </Link>
     </Styled.SideBar>
   );
 }

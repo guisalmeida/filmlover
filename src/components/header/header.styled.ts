@@ -51,6 +51,11 @@ export const UserContainer = styled.div`
   justify-content: end;
   width: 30%;
 
+  a {
+    color: var(--white);
+    text-decoration: none;
+  }
+
   ${media.lessThan('medium')`
         display: none;
     `}
