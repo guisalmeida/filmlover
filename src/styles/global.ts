@@ -62,10 +62,7 @@ button {
     width: 100%;
     max-width: var(--break-large);
 }
-.Toastify__toast-container {
-    width: 100%;
-    max-width: 20rem;
-}
+
 .Toastify__toast-theme--dark {
     background: rgba(29, 39, 53, 0.6);
     background: -webkit-linear-gradient(
